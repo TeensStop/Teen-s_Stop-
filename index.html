@@ -75,7 +75,7 @@
             color: var(--primary-blue);
             letter-spacing: -0.5px;
         }
-        
+
         .store-name span {
             color: var(--accent-orange);
         }
@@ -126,7 +126,7 @@
             gap: 8px;
             box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
         }
-        
+
         .cart-button:hover {
             background-color: var(--dark-blue);
             transform: translateY(-2px);
@@ -143,7 +143,7 @@
             text-align: center;
             line-height: 1;
         }
-        
+
         /* --- Hero Section --- */
         .hero {
             text-align: center;
@@ -277,7 +277,7 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
             box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
         }
-        
+
         .add-to-cart-btn:hover {
             background-color: var(--dark-green);
             transform: translateY(-2px);
@@ -366,7 +366,7 @@
             border-bottom: 1px solid var(--border-light);
             background-color: #fcfcfc;
         }
-        
+
         #cart-items li:last-child {
             border-bottom: none;
         }
@@ -380,7 +380,7 @@
             font-weight: 600;
             color: var(--primary-blue);
         }
-        
+
         #cart-total-container {
             text-align: right;
             font-size: 1.6rem;
@@ -451,8 +451,8 @@
             margin-bottom: 5px;
         }
 
-        #checkout-form input[type="text"], 
-        #checkout-form input[type="tel"], 
+        #checkout-form input[type="text"],
+        #checkout-form input[type="tel"],
         #checkout-form textarea {
             width: 100%;
             padding: 12px;
@@ -686,11 +686,7 @@
                 <label>Payment Method</label>
                 <div id="payment-options">
                     <div>
-                        <input type="radio" id="cod" name="Payment_Method" value="Cash on Delivery" checked>
-                        <label for="cod">Cash on Delivery (COD)</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="upi" name="Payment_Method" value="UPI">
+                        <input type="radio" id="upi" name="Payment_Method" value="UPI" checked>
                         <label for="upi">UPI Payment</label>
                     </div>
                 </div>
@@ -700,7 +696,7 @@
                     <img src="https://placehold.co/200x200/3498db/white?text=YOUR+UPI+QR" alt="UPI QR Code">
                     <p><strong>Note:</strong> Show the payment receipt to the delivery person.</p>
                 </div>
-                
+
                 <button type="submit" class="add-to-cart-btn" style="width:100%; margin-top: 1.5rem;">Place Order</button>
             </form>
         </div>
@@ -716,7 +712,7 @@
                 { id: 103, name: 'Prime Energy (Orange Mango)', price: 349, image: 'https://placehold.co/400x400/FFA500/white?text=Prime+Orange+Mango' },
                 { id: 104, name: 'Prime Energy (Tropical Punch)', price: 349, image: 'https://placehold.co/400x400/FF6347/white?text=Prime+Tropical+Punch' },
                 { id: 105, name: 'Prime Energy (Lemon Lime)', price: 349, image: 'https://placehold.co/400x400/9ACD32/white?text=Prime+Lemon+Lime' },
-                
+
                 // Prime Hydration Drinks (Assumed MRP)
                 { id: 201, name: 'Prime Hydration (Meta Moon)', price: 299, image: 'https://placehold.co/400x400/9b59b6/white?text=Prime+Meta+Moon' },
                 { id: 202, name: 'Prime Hydration (Blue Raspberry)', price: 299, image: 'https://placehold.co/400x400/0000CD/white?text=Prime+Blue+Raspberry' },
@@ -726,16 +722,16 @@
                 { id: 206, name: 'Prime Hydration (Orange)', price: 299, image: 'https://placehold.co/400x400/FF8C00/white?text=Prime+Orange' },
                 { id: 207, name: 'Prime Hydration (Strawberry Watermelon)', price: 299, image: 'https://placehold.co/400x400/FF69B4/white?text=Prime+Strawberry+Watermelon' },
 
-                // Kato Drinks (Assumed MRP - often lower than Prime)
-                { id: 301, name: 'Kato Sparkling Water (Lime)', price: 80, image: 'https://placehold.co/400x400/B2F0B2/black?text=Kato+Lime' },
-                { id: 302, name: 'Kato Sparkling Water (Strawberry)', price: 80, image: 'https://placehold.co/400x400/FFC0CB/black?text=Kato+Strawberry' },
-                { id: 303, name: 'Kato Sparkling Water (Orange)', price: 80, image: 'https://placehold.co/400x400/FFD700/black?text=Kato+Orange' },
-                { id: 304, name: 'Kato Sparkling Water (Mixed Berry)', price: 80, image: 'https://placehold.co/400x400/BA55D3/black?text=Kato+Mixed+Berry' },
-                { id: 305, name: 'Kato Sparkling Water (Plain)', price: 70, image: 'https://placehold.co/400x400/F0F8FF/black?text=Kato+Plain' },
-                { id: 306, name: 'Kato Coconut Water (Original)', price: 120, image: 'https://placehold.co/400x400/F0F8FF/black?text=Kato+Coconut' },
-                { id: 307, name: 'Kato Coconut Water (Pineapple)', price: 120, image: 'https://placehold.co/400x400/FFA07A/black?text=Kato+Pineapple' },
+                // Kato Drinks (Assumed MRP)
+                { id: 301, name: 'Kato Sparkling Water (Grape)', price: 80, image: 'https://placehold.co/400x400/BEB2D6/black?text=Kato+Grape' },
+                { id: 302, name: 'Kato Sparkling Water (Peach)', price: 80, image: 'https://placehold.co/400x400/FFDAB9/black?text=Kato+Peach' },
+                { id: 303, name: 'Kato Sparkling Water (Blackcurrant)', price: 80, image: 'https://placehold.co/400x400/4B0082/white?text=Kato+Blackcurrant' },
+                { id: 304, name: 'Kato Sparkling Water (Strawberry)', price: 80, image: 'https://placehold.co/400x400/FF69B4/black?text=Kato+Strawberry' },
+                { id: 305, name: 'Kato Sparkling Water (Lychee)', price: 80, image: 'https://placehold.co/400x400/F0FFF0/black?text=Kato+Lychee' },
+                { id: 306, name: 'Kato Coconut Water (Original)', price: 120, image: 'https://placehold.co/400x400/F0E68C/black?text=Kato+Coconut' },
+                { id: 307, name: 'Kato Coconut Water (Pineapple)', price: 120, image: 'https://placehold.co/400x400/FFD700/black?text=Kato+Pineapple' },
                 { id: 308, name: 'Kato Juice (Apple)', price: 100, image: 'https://placehold.co/400x400/90EE90/black?text=Kato+Apple' },
-                { id: 309, name: 'Kato Juice (Mango)', price: 100, image: 'https://placehold.co/400x400/FFDAB9/black?text=Kato+Mango' }
+                { id: 309, name: 'Kato Juice (Mango)', price: 100, image: 'https://placehold.co/400x400/FFA07A/black?text=Kato+Mango' }
             ];
 
             // --- DOM ELEMENTS ---
@@ -745,7 +741,7 @@
             const closeCartButton = document.getElementById('close-cart-btn');
             const cartItemsList = document.getElementById('cart-items');
             const cartCount = document.getElementById('cart-count');
-            const cartTotalSpan = document.getElementById('cart-total'); // Renamed to avoid conflict
+            const cartTotalSpan = document.getElementById('cart-total');
             const orderSummaryTextarea = document.getElementById('order-summary');
             const paymentMethodRadios = document.querySelectorAll('input[name="Payment_Method"]');
             const upiQRCode = document.getElementById('upi-qr-code');
@@ -810,7 +806,7 @@
                     });
                 }
             }
-            
+
             function calculateTotal() {
                 let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -825,7 +821,7 @@
             function updateCartUI() {
                 const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
                 cartCount.textContent = totalItems;
-                
+
                 const finalTotal = calculateTotal();
                 cartTotalSpan.textContent = finalTotal.toFixed(2);
 
@@ -838,16 +834,16 @@
                 } else {
                     discountAppliedMessage.style.display = 'none';
                 }
-                
+
                 updateOrderSummaryForForm();
             }
-            
+
             function updateOrderSummaryForForm() {
                 let summary = 'Order Details:\n';
                 cart.forEach(item => {
                     summary += `- ${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}\n`;
                 });
-                
+
                 const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
                 summary += `\nSubtotal: ₹${subtotal.toFixed(2)}`;
 
@@ -867,7 +863,7 @@
 
             function applyCoupon() {
                 const couponCode = couponCodeInput.value.trim().toUpperCase();
-                
+
                 currentDiscount = 0; // Reset discount
                 appliedCouponCode = ''; // Reset applied coupon
                 couponMessage.textContent = '';
@@ -901,7 +897,7 @@
                     upiQRCode.style.display = 'none';
                 }
             }
-            
+
             // --- EVENT LISTENERS ---
             productGrid.addEventListener('click', (e) => {
                 if (e.target.classList.contains('add-to-cart-btn')) {
@@ -910,8 +906,8 @@
                     // Give user feedback
                     e.target.innerText = 'Added!';
                     e.target.style.backgroundColor = 'var(--dark-green)';
-                    setTimeout(() => { 
-                        e.target.innerText = 'Add to Cart'; 
+                    setTimeout(() => {
+                        e.target.innerText = 'Add to Cart';
                         e.target.style.backgroundColor = 'var(--success-green)';
                     }, 1000);
                 }
@@ -920,7 +916,8 @@
             cartButton.addEventListener('click', () => {
                 cartModal.style.display = 'block';
                 // Ensure cart total is updated with any active discount when modal opens
-                updateCartUI(); 
+                updateCartUI();
+                togglePaymentDetails(); // Ensure UPI QR code visibility is correct on modal open
             });
 
             closeCartButton.addEventListener('click', () => {
@@ -943,10 +940,11 @@
                     applyCoupon();
                 }
             });
-            
+
             // --- INITIALIZATION ---
             renderProducts();
             updateCart(); // Initial cart update
+            togglePaymentDetails(); // Set initial visibility for UPI QR code
         });
     </script>
 </body>
