@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teen's Stop - Your Ultimate Hub</title>
+    <title>Teen's Stop - Your Ultimate Drink Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Modern & Professional UI */
@@ -21,6 +21,8 @@
             --border-light: #e0e0e0; /* Lighter border color */
             --accent-orange: #f39c12; /* Subtle orange for accents */
             --red-alert: #e74c3c; /* Red for cart count */
+            --coupon-success: #28a745;
+            --coupon-error: #dc3545;
         }
 
         body {
@@ -146,7 +148,7 @@
         .hero {
             text-align: center;
             padding: 80px 20px;
-            background: linear-gradient(135deg, var(--primary-blue), #6dd5ed);
+            background: linear-gradient(135deg, #1A2980, #26D0CE); /* Blue-green gradient for drinks */
             color: white;
             margin-top: 30px;
             border-radius: 12px;
@@ -162,7 +164,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('https://source.unsplash.com/random/1200x400/?tech,stationery,drinks') no-repeat center center/cover;
+            background: url('https://source.unsplash.com/random/1200x400/?drinks,beverages,refreshment') no-repeat center center/cover;
             opacity: 0.2;
             z-index: 0;
         }
@@ -391,6 +393,56 @@
             color: var(--success-green);
         }
 
+        /* Coupon Code Section */
+        .coupon-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .coupon-section input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border-light);
+            font-size: 1rem;
+        }
+
+        .coupon-section button {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .coupon-section button:hover {
+            background-color: var(--dark-blue);
+        }
+
+        #coupon-message {
+            margin-top: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        #coupon-message.success {
+            color: var(--coupon-success);
+        }
+
+        #coupon-message.error {
+            color: var(--coupon-error);
+        }
+
         #checkout-form label {
             display: block;
             margin-top: 1.2rem;
@@ -561,7 +613,7 @@
     <div class="top-nav">
         <div class="container">
             <span>Free delivery on orders over ₹999</span>
-            <span>📞 +91 75740 88800</span>
+            <span>📞 +91 98765 43210</span>
         </div>
     </div>
 
@@ -570,7 +622,7 @@
             <div class="store-name">Teen's<span>Stop</span></div>
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search for products...">
+                <input type="text" placeholder="Search for your favorite drinks...">
             </div>
             <button class="cart-button" id="open-cart-btn">
                 <i class="fas fa-shopping-cart"></i> Cart
@@ -582,9 +634,9 @@
     <main class="container">
         <section class="hero">
             <div class="hero-content">
-                <h1>Unlock the Coolest Finds!</h1>
-                <p>Your ultimate hub for trendy gadgets, refreshing drinks, and essential stationery right here in Navsari!</p>
-                <button class="shop-now-btn" onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' });">Shop Now</button>
+                <h1>Quench Your Thirst!</h1>
+                <p>Your ultimate hub for the coolest Prime and Kato drinks in Navsari!</p>
+                <button class="shop-now-btn" onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' });">Explore Drinks</button>
             </div>
         </section>
 
@@ -594,8 +646,8 @@
 
     <footer>
         <div class="container">
-            <p> 2025 Teen's Stop</p>
-            <p>Designed with ❤️ for Navsari's Teens</p>
+            <p>&copy; 2025 Teen's Stop. All rights reserved.</p>
+            <p>Sip, Enjoy, Repeat!</p>
         </div>
     </footer>
 
@@ -605,8 +657,15 @@
             <h2>Your Shopping Cart</h2>
             <ul id="cart-items">
                 </ul>
+            <div class="coupon-section">
+                <input type="text" id="coupon-code-input" placeholder="Enter coupon code">
+                <button id="apply-coupon-btn">Apply</button>
+            </div>
+            <p id="coupon-message"></p>
+
             <div id="cart-total-container">
                 Total: ₹<span id="cart-total">0.00</span>
+                <p id="discount-applied" style="font-size:0.9em; color:var(--coupon-success); display:none;">(Discount Applied)</p>
             </div>
             <hr>
             <h2>Checkout Information</h2>
@@ -651,14 +710,32 @@
         document.addEventListener('DOMContentLoaded', () => {
             // --- YOUR PRODUCT DATA ---
             const products = [
-                { id: 1, name: 'Prime Energy (Ice Pop)', price: 349, image: 'https://images.unsplash.com/photo-1698246726279-05221df75e81?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-                { id: 2, name: 'Prime Hydration (Meta Moon)', price: 299, image: 'https://images.unsplash.com/photo-1698246726279-05221df75e81?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-                { id: 3, name: 'Gel Pen Set (12 Colors)', price: 175, image: 'https://images.unsplash.com/photo-1620601844976-46549a03975a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-                { id: 4, name: 'Pastel Highlighters (Pack of 6)', price: 220, image: 'https://images.unsplash.com/photo-1620601844976-46549a03975a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-                { id: 5, name: 'Mini Bluetooth Speaker', price: 899, image: 'https://images.unsplash.com/photo-1546435345-429f45f949c2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-                { id: 6, name: '2025 Weekly Planner Diary', price: 399, image: 'https://images.unsplash.com/photo-1620601844976-46549a03975a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-                { id: 7, name: 'Kawaii Sticker Sheets (50 Pcs)', price: 149, image: 'https://images.unsplash.com/photo-1620601844976-46549a03975a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
-                { id: 8, name: 'Portable Laptop Stand', price: 699, image: 'https://images.unsplash.com/photo-1601923058849-c1747806f140?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' }
+                // Prime Energy Drinks (Assumed MRP)
+                { id: 101, name: 'Prime Energy (Ice Pop)', price: 349, image: 'https://placehold.co/400x400/87CEEB/white?text=Prime+Ice+Pop' },
+                { id: 102, name: 'Prime Energy (Blue Raspberry)', price: 349, image: 'https://placehold.co/400x400/0000FF/white?text=Prime+Blue+Raspberry' },
+                { id: 103, name: 'Prime Energy (Orange Mango)', price: 349, image: 'https://placehold.co/400x400/FFA500/white?text=Prime+Orange+Mango' },
+                { id: 104, name: 'Prime Energy (Tropical Punch)', price: 349, image: 'https://placehold.co/400x400/FF6347/white?text=Prime+Tropical+Punch' },
+                { id: 105, name: 'Prime Energy (Lemon Lime)', price: 349, image: 'https://placehold.co/400x400/9ACD32/white?text=Prime+Lemon+Lime' },
+                
+                // Prime Hydration Drinks (Assumed MRP)
+                { id: 201, name: 'Prime Hydration (Meta Moon)', price: 299, image: 'https://placehold.co/400x400/9b59b6/white?text=Prime+Meta+Moon' },
+                { id: 202, name: 'Prime Hydration (Blue Raspberry)', price: 299, image: 'https://placehold.co/400x400/0000CD/white?text=Prime+Blue+Raspberry' },
+                { id: 203, name: 'Prime Hydration (Tropical Punch)', price: 299, image: 'https://placehold.co/400x400/FF4500/white?text=Prime+Tropical+Punch' },
+                { id: 204, name: 'Prime Hydration (Lemon Lime)', price: 299, image: 'https://placehold.co/400x400/ADFF2F/white?text=Prime+Lemon+Lime' },
+                { id: 205, name: 'Prime Hydration (Grape)', price: 299, image: 'https://placehold.co/400x400/800080/white?text=Prime+Grape' },
+                { id: 206, name: 'Prime Hydration (Orange)', price: 299, image: 'https://placehold.co/400x400/FF8C00/white?text=Prime+Orange' },
+                { id: 207, name: 'Prime Hydration (Strawberry Watermelon)', price: 299, image: 'https://placehold.co/400x400/FF69B4/white?text=Prime+Strawberry+Watermelon' },
+
+                // Kato Drinks (Assumed MRP - often lower than Prime)
+                { id: 301, name: 'Kato Sparkling Water (Lime)', price: 80, image: 'https://placehold.co/400x400/B2F0B2/black?text=Kato+Lime' },
+                { id: 302, name: 'Kato Sparkling Water (Strawberry)', price: 80, image: 'https://placehold.co/400x400/FFC0CB/black?text=Kato+Strawberry' },
+                { id: 303, name: 'Kato Sparkling Water (Orange)', price: 80, image: 'https://placehold.co/400x400/FFD700/black?text=Kato+Orange' },
+                { id: 304, name: 'Kato Sparkling Water (Mixed Berry)', price: 80, image: 'https://placehold.co/400x400/BA55D3/black?text=Kato+Mixed+Berry' },
+                { id: 305, name: 'Kato Sparkling Water (Plain)', price: 70, image: 'https://placehold.co/400x400/F0F8FF/black?text=Kato+Plain' },
+                { id: 306, name: 'Kato Coconut Water (Original)', price: 120, image: 'https://placehold.co/400x400/F0F8FF/black?text=Kato+Coconut' },
+                { id: 307, name: 'Kato Coconut Water (Pineapple)', price: 120, image: 'https://placehold.co/400x400/FFA07A/black?text=Kato+Pineapple' },
+                { id: 308, name: 'Kato Juice (Apple)', price: 100, image: 'https://placehold.co/400x400/90EE90/black?text=Kato+Apple' },
+                { id: 309, name: 'Kato Juice (Mango)', price: 100, image: 'https://placehold.co/400x400/FFDAB9/black?text=Kato+Mango' }
             ];
 
             // --- DOM ELEMENTS ---
@@ -668,13 +745,19 @@
             const closeCartButton = document.getElementById('close-cart-btn');
             const cartItemsList = document.getElementById('cart-items');
             const cartCount = document.getElementById('cart-count');
-            const cartTotal = document.getElementById('cart-total');
+            const cartTotalSpan = document.getElementById('cart-total'); // Renamed to avoid conflict
             const orderSummaryTextarea = document.getElementById('order-summary');
             const paymentMethodRadios = document.querySelectorAll('input[name="Payment_Method"]');
             const upiQRCode = document.getElementById('upi-qr-code');
+            const couponCodeInput = document.getElementById('coupon-code-input');
+            const applyCouponBtn = document.getElementById('apply-coupon-btn');
+            const couponMessage = document.getElementById('coupon-message');
+            const discountAppliedMessage = document.getElementById('discount-applied');
 
             // Load cart from browser's local storage
             let cart = JSON.parse(localStorage.getItem('teensStopCart')) || [];
+            let currentDiscount = 0; // Stores the discount percentage or fixed amount
+            let appliedCouponCode = ''; // Stores the currently applied coupon code
 
             // --- CORE FUNCTIONS ---
             function renderProducts() {
@@ -728,25 +811,88 @@
                 }
             }
             
+            function calculateTotal() {
+                let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+                if (currentDiscount === 100) { // NSL100 coupon
+                    total = 0;
+                } else if (currentDiscount > 0) { // Darshil15 coupon (15%)
+                    total = total * (1 - (currentDiscount / 100));
+                }
+                return total;
+            }
+
             function updateCartUI() {
                 const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
                 cartCount.textContent = totalItems;
                 
-                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-                cartTotal.textContent = total.toFixed(2);
+                const finalTotal = calculateTotal();
+                cartTotalSpan.textContent = finalTotal.toFixed(2);
+
+                if (appliedCouponCode && finalTotal === 0) {
+                    discountAppliedMessage.textContent = "(Applied: " + appliedCouponCode + " - 100% OFF)";
+                    discountAppliedMessage.style.display = 'block';
+                } else if (appliedCouponCode && currentDiscount > 0) {
+                     discountAppliedMessage.textContent = "(Applied: " + appliedCouponCode + " - " + currentDiscount + "% OFF)";
+                     discountAppliedMessage.style.display = 'block';
+                } else {
+                    discountAppliedMessage.style.display = 'none';
+                }
                 
                 updateOrderSummaryForForm();
             }
             
             function updateOrderSummaryForForm() {
-                let summary = '';
+                let summary = 'Order Details:\n';
                 cart.forEach(item => {
-                    summary += `${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}\n`;
+                    summary += `- ${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}\n`;
                 });
-                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-                summary += `\nGRAND TOTAL: ₹${total.toFixed(2)}`;
+                
+                const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                summary += `\nSubtotal: ₹${subtotal.toFixed(2)}`;
+
+                if (appliedCouponCode) {
+                    summary += `\nCoupon Applied: ${appliedCouponCode}`;
+                    if (currentDiscount === 100) {
+                        summary += ` (100% OFF)`;
+                    } else if (currentDiscount > 0) {
+                        summary += ` (${currentDiscount}% OFF)`;
+                    }
+                }
+
+                const finalTotal = calculateTotal();
+                summary += `\nGRAND TOTAL: ₹${finalTotal.toFixed(2)}`;
                 orderSummaryTextarea.value = summary;
             }
+
+            function applyCoupon() {
+                const couponCode = couponCodeInput.value.trim().toUpperCase();
+                
+                currentDiscount = 0; // Reset discount
+                appliedCouponCode = ''; // Reset applied coupon
+                couponMessage.textContent = '';
+                couponMessage.className = '';
+
+                if (couponCode === 'DARSHIL15') {
+                    currentDiscount = 15;
+                    appliedCouponCode = 'DARSHIL15';
+                    couponMessage.textContent = 'Coupon "DARSHIL15" applied! You get 15% off.';
+                    couponMessage.classList.add('success');
+                } else if (couponCode === 'NSL100') {
+                    currentDiscount = 100;
+                    appliedCouponCode = 'NSL100';
+                    couponMessage.textContent = 'Coupon "NSL100" applied! Your order is 100% FREE!';
+                    couponMessage.classList.add('success');
+                } else if (couponCode === '') {
+                    couponMessage.textContent = 'Please enter a coupon code.';
+                    couponMessage.classList.add('error');
+                } else {
+                    couponMessage.textContent = 'Invalid coupon code. Please try again.';
+                    couponMessage.classList.add('error');
+                }
+                updateCartUI(); // Recalculate total with discount
+            }
+
 
             function togglePaymentDetails() {
                 if (document.getElementById('upi').checked) {
@@ -773,6 +919,8 @@
 
             cartButton.addEventListener('click', () => {
                 cartModal.style.display = 'block';
+                // Ensure cart total is updated with any active discount when modal opens
+                updateCartUI(); 
             });
 
             closeCartButton.addEventListener('click', () => {
@@ -788,12 +936,18 @@
             paymentMethodRadios.forEach(radio => {
                 radio.addEventListener('change', togglePaymentDetails);
             });
+
+            applyCouponBtn.addEventListener('click', applyCoupon);
+            couponCodeInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    applyCoupon();
+                }
+            });
             
             // --- INITIALIZATION ---
             renderProducts();
-            updateCart();
+            updateCart(); // Initial cart update
         });
     </script>
 </body>
 </html>
-
