@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teen's Stop - Your Ultimate Hub</title>
+    <style>
+        /* CSS for a sleek and modern UI */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --text-color: #343a40;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+            --success-color: #28a745;
+            --accent-color: #ffc107;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .store-name {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .store-name span {
+            color: var(--accent-color);
+        }
+
+        .cart-button {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            position: relative;
+            transition: background-color 0.3s;
+        }
+        
+        .cart-button:hover {
+            background-color: #0056b3;
+        }
+
+        #cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 3px 7px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: var(--card-bg);
+            margin-top: 2rem;
+            border-radius: 8px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--success-color);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #218838;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 8% auto;
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #cart-items {
+            list-style: none;
+            padding: 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        #cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        #cart-items li:last-child {
+            border-bottom: none;
+        }
+        
+        #cart-total-container {
+            text-align: right;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        #checkout-form label {
+            display: block;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        #checkout-form input[type="text"], 
+        #checkout-form input[type="tel"], 
+        #checkout-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            box-sizing: border-box; /* Important for consistent sizing */
+        }
+        
+        #payment-options div {
+            margin-top: 10px;
+        }
+
+        #upi-qr-code {
+            display: none;
+            text-align: center;
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border: 1px dashed var(--secondary-color);
+            border-radius: 8px;
+        }
+
+        #upi-qr-code img {
+            max-width: 200px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="container">
+        <div class="store-name">Teen's<span>Stop</span></div>
+        <button class="cart-button" id="open-cart-btn">
+            🛒 Cart
+            <span id="cart-count">0</span>
+        </button>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Gadgets, Drinks & Stationery</h1>
+            <p>Your one-stop hub for everything cool in Navsari!</p>
+        </section>
+
+        <section id="products" class="product-grid">
+            </section>
+    </main>
+
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-cart-btn">&times;</span>
+            <h2>Your Shopping Cart</h2>
+            <ul id="cart-items">
+                </ul>
+            <div id="cart-total-container">
+                Total: ₹<span id="cart-total">0.00</span>
+            </div>
+            <hr>
+            <h2>Checkout Information</h2>
+            <form id="checkout-form" action="https://formsubmit.co/teensstopofficial@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="🎉 New Order from Teen's Stop!">
+                <input type="hidden" name="_template" value="table">
+                <textarea name="Order_Summary" id="order-summary" readonly style="display:none;"></textarea>
+
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="Customer_Name" required>
+
+                <label for="address">Full Delivery Address</label>
+                <textarea id="address" name="Delivery_Address" rows="3" required></textarea>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="Phone_Number" required>
+
+                <label>Payment Method</label>
+                <div id="payment-options">
+                    <div>
+                        <input type="radio" id="cod" name="Payment_Method" value="Cash on Delivery" checked>
+                        <label for="cod">Cash on Delivery (COD)</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="upi" name="Payment_Method" value="UPI">
+                        <label for="upi">UPI Payment</label>
+                    </div>
+                </div>
+
+                <div id="upi-qr-code">
+                    <p>Scan the QR code with any UPI app to pay.</p>
+                    <img src="https://placehold.co/200x200/png?text=Your+UPI+QR" alt="UPI QR Code">
+                    <p><strong>Note:</strong> Show the payment receipt to the delivery person.</p>
+                </div>
+                
+                <button type="submit" class="add-to-cart-btn" style="width:100%; margin-top: 1.5rem;">Place Order</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- YOUR PRODUCT DATA ---
+            // This section has been updated with Prime Energy and Stationery products.
+            // IMPORTANT: Replace placeholder images with your actual product photos.
+            const products = [
+                { id: 1, name: 'Prime Energy (Ice Pop)', price: 349, image: 'https://placehold.co/400x400/3498db/white?text=Prime+Ice+Pop' },
+                { id: 2, name: 'Prime Hydration (Meta Moon)', price: 299, image: 'https://placehold.co/400x400/9b59b6/white?text=Prime+Meta+Moon' },
+                { id: 3, name: 'Gel Pen Set (12 Colors)', price: 175, image: 'https://placehold.co/400x400/f1c40f/black?text=Gel+Pens' },
+                { id: 4, name: 'Pastel Highlighters (Pack of 6)', price: 220, image: 'https://placehold.co/400x400/1abc9c/white?text=Highlighters' },
+                { id: 5, name: 'Mini Bluetooth Speaker', price: 899, image: 'https://placehold.co/400x400/e74c3c/white?text=BT+Speaker' },
+                { id: 6, name: '2025 Weekly Planner Diary', price: 399, image: 'https://placehold.co/400x400/34495e/white?text=2025+Planner' },
+                { id: 7, name: 'Kawaii Sticker Sheets (50 Pcs)', price: 149, image: 'https://placehold.co/400x400/e84393/white?text=Stickers' },
+                { id: 8, name: 'Portable Laptop Stand', price: 699, image: 'https://placehold.co/400x400/7f8c8d/white?text=Laptop+Stand' }
+            ];
+
+            // --- DOM ELEMENTS ---
+            const productGrid = document.getElementById('products');
+            const cartButton = document.getElementById('open-cart-btn');
+            const cartModal = document.getElementById('cart-modal');
+            const closeCartButton = document.getElementById('close-cart-btn');
+            const cartItemsList = document.getElementById('cart-items');
+            const cartCount = document.getElementById('cart-count');
+            const cartTotal = document.getElementById('cart-total');
+            const orderSummaryTextarea = document.getElementById('order-summary');
+            const paymentMethodRadios = document.querySelectorAll('input[name="Payment_Method"]');
+            const upiQRCode = document.getElementById('upi-qr-code');
+
+            // Load cart from browser's local storage
+            let cart = JSON.parse(localStorage.getItem('teensStopCart')) || [];
+
+            // --- CORE FUNCTIONS ---
+            function renderProducts() {
+                productGrid.innerHTML = '';
+                products.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}" class="product-image">
+                        <div class="product-info">
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-price">₹${product.price.toFixed(2)}</p>
+                            <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                        </div>
+                    `;
+                    productGrid.appendChild(productCard);
+                });
+            }
+
+            function addToCart(productId) {
+                const product = products.find(p => p.id === productId);
+                const cartItem = cart.find(item => item.id === productId);
+
+                if (cartItem) {
+                    cartItem.quantity++;
+                } else {
+                    cart.push({ ...product, quantity: 1 });
+                }
+                updateCart();
+            }
+
+            function updateCart() {
+                renderCartItems();
+                updateCartUI();
+                localStorage.setItem('teensStopCart', JSON.stringify(cart));
+            }
+
+            function renderCartItems() {
+                cartItemsList.innerHTML = '';
+                if (cart.length === 0) {
+                    cartItemsList.innerHTML = '<li><p>Your cart is empty.</p></li>';
+                } else {
+                    cart.forEach(item => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <span>${item.name} (x${item.quantity})</span>
+                            <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+                        `;
+                        cartItemsList.appendChild(li);
+                    });
+                }
+            }
+            
+            function updateCartUI() {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+                
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                cartTotal.textContent = total.toFixed(2);
+                
+                updateOrderSummaryForForm();
+            }
+            
+            function updateOrderSummaryForForm() {
+                let summary = '';
+                cart.forEach(item => {
+                    summary += `${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}\n`;
+                });
+                const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                summary += `\nGRAND TOTAL: ₹${total.toFixed(2)}`;
+                orderSummaryTextarea.value = summary;
+            }
+
+            function togglePaymentDetails() {
+                if (document.getElementById('upi').checked) {
+                    upiQRCode.style.display = 'block';
+                } else {
+                    upiQRCode.style.display = 'none';
+                }
+            }
+            
+            // --- EVENT LISTENERS ---
+            productGrid.addEventListener('click', (e) => {
+                if (e.target.classList.contains('add-to-cart-btn')) {
+                    const productId = parseInt(e.target.getAttribute('data-id'));
+                    addToCart(productId);
+                    // Give user feedback
+                    e.target.innerText = 'Added!';
+                    setTimeout(() => { e.target.innerText = 'Add to Cart'; }, 1000);
+                }
+            });
+
+            cartButton.addEventListener('click', () => {
+                cartModal.style.display = 'block';
+            });
+
+            closeCartButton.addEventListener('click', () => {
+                cartModal.style.display = 'none';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (e.target == cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+
+            paymentMethodRadios.forEach(radio => {
+                radio.addEventListener('change', togglePaymentDetails);
+            });
+            
+            // --- INITIALIZATION ---
+            renderProducts();
+            updateCart();
+        });
+    </script>
+</body>
+</html>
