@@ -211,12 +211,37 @@
 
 
         /* --- Product Grid --- */
+        .product-category {
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+
+        .product-category h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .product-category h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+        }
+
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2.5rem;
-            margin-top: 50px;
-            padding-bottom: 50px;
+            padding-bottom: 20px;
         }
 
         .product-card {
@@ -646,7 +671,7 @@
             <div class="store-name">Teen's<span>Stop</span></div>
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search for your favorite drinks...">
+                <input type="text" id="search-input" placeholder="Search for your favorite drinks...">
             </div>
             <button class="cart-button" id="open-cart-btn">
                 <i class="fas fa-shopping-cart"></i> Cart
@@ -660,11 +685,11 @@
             <div class="hero-content">
                 <h1>Quench Your Thirst!</h1>
                 <p>Your ultimate hub for the coolest Prime and Kato drinks in Navsari!</p>
-                <button class="shop-now-btn" onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' });">Explore Drinks</button>
+                <button class="shop-now-btn" onclick="document.getElementById('product-sections').scrollIntoView({ behavior: 'smooth' });">Explore Drinks</button>
             </div>
         </section>
 
-        <section id="products" class="product-grid">
+        <section id="product-sections">
             </section>
     </main>
 
@@ -732,111 +757,93 @@
             // --- YOUR PRODUCT DATA ---
             const products = [
                 // Prime Energy Drinks (Assumed MRP)
-                { id: 101, name: 'Prime Energy (Ice Pop)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/87CEEB/white?text=Prime+Ice+Pop' },
-                { id: 102, name: 'Prime Energy (Blue Raspberry)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/0000FF/white?text=Prime+Blue+Raspberry' },
-                { id: 103, name: 'Prime Energy (Orange Mango)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/FFA500/white?text=Prime+Orange+Mango' },
-                { id: 104, name: 'Prime Energy (Tropical Punch)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/FF6347/white?text=Prime+Tropical+Punch' },
-                { id: 105, name: 'Prime Energy (Lemon Lime)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/9ACD32/white?text=Prime+Lemon+Lime' },
+                { id: 101, name: 'Prime Energy (Ice Pop)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/87CEEB/white?text=Prime+Ice+Pop', category: 'Prime Energy Drinks' },
+                { id: 102, name: 'Prime Energy (Blue Raspberry)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/0000FF/white?text=Prime+Blue+Raspberry', category: 'Prime Energy Drinks' },
+                { id: 103, name: 'Prime Energy (Orange Mango)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/FFA500/white?text=Prime+Orange+Mango', category: 'Prime Energy Drinks' },
+                { id: 104, name: 'Prime Energy (Tropical Punch)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/FF6347/white?text=Prime+Tropical+Punch', category: 'Prime Energy Drinks' },
+                { id: 105, name: 'Prime Energy (Lemon Lime)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/9ACD32/white?text=Prime+Lemon+Lime', category: 'Prime Energy Drinks' },
 
                 // Prime Hydration Drinks (Assumed MRP)
-                { id: 201, name: 'Prime Hydration (Meta Moon)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/9b59b6/white?text=Prime+Meta+Moon' },
-                { id: 202, name: 'Prime Hydration (Blue Raspberry)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/0000CD/white?text=Prime+Blue+Raspberry' },
-                { id: 203, name: 'Prime Hydration (Tropical Punch)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/FF4500/white?text=Prime+Tropical+Punch' },
-                { id: 204, name: 'Prime Hydration (Lemon Lime)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/ADFF2F/white?text=Prime+Lemon+Lime' },
-                { id: 205, name: 'Prime Hydration (Grape)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/800080/white?text=Prime+Grape' },
-                { id: 206, name: 'Prime Hydration (Orange)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/FF8C00/white?text=Prime+Orange' },
-                { id: 207, name: 'Prime Hydration (Strawberry Watermelon)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/FF69B4/white?text=Prime+Strawberry+Watermelon' },
+                { id: 201, name: 'Prime Hydration (Meta Moon)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/9b59b6/white?text=Prime+Meta+Moon', category: 'Prime Hydration Drinks' },
+                { id: 202, name: 'Prime Hydration (Blue Raspberry)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/0000CD/white?text=Prime+Blue+Raspberry', category: 'Prime Hydration Drinks' },
+                { id: 203, name: 'Prime Hydration (Tropical Punch)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/FF4500/white?text=Prime+Tropical+Punch', category: 'Prime Hydration Drinks' },
+                { id: 204, name: 'Prime Hydration (Lemon Lime)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/ADFF2F/white?text=Prime+Lemon+Lime', category: 'Prime Hydration Drinks' },
+                { id: 205, name: 'Prime Hydration (Grape)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/800080/white?text=Prime+Grape', category: 'Prime Hydration Drinks' },
+                { id: 206, name: 'Prime Hydration (Orange)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/FF8C00/white?text=Prime+Orange', category: 'Prime Hydration Drinks' },
+                { id: 207, name: 'Prime Hydration (Strawberry Watermelon)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/FF69B4/white?text=Prime+Strawberry+Watermelon', category: 'Prime Hydration Drinks' },
+
+                // Prime Drinks (Limited Editions)
+                { id: 501, name: 'Prime FC Barcelona', price: 600, mrp: 650, image: 'https://placehold.co/400x400/A50044/white?text=Prime+FCB', category: 'Limited Edition Prime' },
+                { id: 502, name: 'Prime Berry Freeze', price: 600, mrp: 650, image: 'https://placehold.co/400x400/8A2BE2/white?text=Prime+Berry+Freeze', category: 'Limited Edition Prime' },
+                { id: 503, name: 'Prime Glow Berry', price: 600, mrp: 650, image: 'https://placehold.co/400x400/F0F8FF/black?text=Prime+Glow+Berry', category: 'Limited Edition Prime' },
+                { id: 504, name: 'Prime Arsenal', price: 600, mrp: 650, image: 'https://placehold.co/400x400/EF0107/white?text=Prime+Arsenal', category: 'Limited Edition Prime' },
+                { id: 505, name: 'Prime IShowSpeed', price: 600, mrp: 650, image: 'https://placehold.co/400x400/FFD700/black?text=Prime+IShowSpeed', category: 'Limited Edition Prime' },
+                { id: 506, name: 'Prime Strawberry Banana', price: 599, mrp: 649, image: 'https://placehold.co/400x400/FFC0CB/white?text=Prime+Strawberry+Banana', category: 'Limited Edition Prime' },
+
 
                 // Kato Drinks (Assumed MRP)
-                { id: 301, name: 'Kato Sparkling Water (Grape)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/BEB2D6/black?text=Kato+Grape' },
-                { id: 302, name: 'Kato Sparkling Water (Peach)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/FFDAB9/black?text=Kato+Peach' },
-                { id: 303, name: 'Kato Sparkling Water (Blackcurrant)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/4B0082/white?text=Kato+Blackcurrant' },
-                { id: 304, name: 'Kato Sparkling Water (Strawberry)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/FF69B4/black?text=Kato+Strawberry' },
-                { id: 305, name: 'Kato Sparkling Water (Lychee)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/F0FFF0/black?text=Kato+Lychee' },
-                { id: 306, name: 'Kato Coconut Water (Original)', price: 120, mrp: 135, image: 'https://placehold.co/400x400/F0E68C/black?text=Kato+Coconut' },
-                { id: 307, name: 'Kato Coconut Water (Pineapple)', price: 120, mrp: 135, image: 'https://placehold.co/400x400/FFD700/black?text=Kato+Pineapple' },
-                { id: 308, name: 'Kato Juice (Apple)', price: 100, mrp: 110, image: 'https://placehold.co/400x400/90EE90/black?text=Kato+Apple' },
-                { id: 309, name: 'Kato Juice (Mango)', price: 100, mrp: 110, image: 'https://placehold.co/400x400/FFA07A/black?text=Kato+Mango' },
+                { id: 301, name: 'Kato Sparkling Water (Grape)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/BEB2D6/black?text=Kato+Grape', category: 'Kato Drinks' },
+                { id: 302, name: 'Kato Sparkling Water (Peach)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/FFDAB9/black?text=Kato+Peach', category: 'Kato Drinks' },
+                { id: 303, name: 'Kato Sparkling Water (Blackcurrant)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/4B0082/white?text=Kato+Blackcurrant', category: 'Kato Drinks' },
+                { id: 304, name: 'Kato Sparkling Water (Strawberry)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/FF69B4/black?text=Kato+Strawberry', category: 'Kato Drinks' },
+                { id: 305, name: 'Kato Sparkling Water (Lychee)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/F0FFF0/black?text=Kato+Lychee', category: 'Kato Drinks' },
+                { id: 306, name: 'Kato Coconut Water (Original)', price: 120, mrp: 135, image: 'https://placehold.co/400x400/F0E68C/black?text=Kato+Coconut', category: 'Kato Drinks' },
+                { id: 307, name: 'Kato Coconut Water (Pineapple)', price: 120, mrp: 135, image: 'https://placehold.co/400x400/FFD700/black?text=Kato+Pineapple', category: 'Kato Drinks' },
+                { id: 308, name: 'Kato Juice (Apple)', price: 100, mrp: 110, image: 'https://placehold.co/400x400/90EE90/black?text=Kato+Apple', category: 'Kato Drinks' },
+                { id: 309, name: 'Kato Juice (Mango)', price: 100, mrp: 110, image: 'https://placehold.co/400x400/FFA07A/black?text=Kato+Mango', category: 'Kato Drinks' },
 
-                // Newly Added Products
-                { id: 401, name: 'Zero Alcohol Vodka', price: 299, mrp: 350, image: 'https://placehold.co/400x400/A9A9A9/white?text=Zero+Alcohol+Vodka' },
-                { id: 402, name: 'Skittles Pack of 20 (MX Player)', price: 799, mrp: 850, image: 'https://placehold.co/400x400/FF0000/white?text=Skittles+20+Pack' },
-                { id: 403, name: "Jimmy's Cocktail (Green Apple)", price: 159, mrp: 180, image: 'https://placehold.co/400x400/98FB98/black?text=Jimmy%27s+Green+Apple' },
-                { id: 404, name: 'Maltesers', price: 149, mrp: 165, image: 'https://placehold.co/400x400/8B4513/white?text=Maltesers' },
-                { id: 405, name: 'Skittles (Purple)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/800080/white?text=Skittles+Purple' },
-                { id: 406, name: 'Skittles (Red)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF0000/white?text=Skittles+Red' },
-                { id: 407, name: 'Ice Breakers Chewing Gum', price: 749, mrp: 800, image: 'https://placehold.co/400x400/ADD8E6/black?text=Ice+Breakers' },
-                { id: 408, name: 'White Monster Energy', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FFFFFF/black?text=White+Monster' },
-                { id: 409, name: 'Golden Red Bull', price: 399, mrp: 450, image: 'https://placehold.co/400x400/FFD700/black?text=Golden+Red+Bull' },
-                { id: 410, name: 'Feastables', price: 599, mrp: 650, image: 'https://placehold.co/400x400/A0522D/white?text=Feastables' },
-                { id: 411, name: 'Swami Sparkling Water', price: 149, mrp: 160, image: 'https://placehold.co/400x400/D3D3D3/black?text=Swami+Sparkling' },
-                { id: 412, name: 'Starbucks Coffee (Caramel)', price: 379, mrp: 400, image: 'https://placehold.co/400x400/8B4513/white?text=Starbucks+Caramel' },
-                { id: 413, name: 'Hello Panda (Strawberry)', price: 169, mrp: 180, image: 'https://placehold.co/400x400/FFB6C1/black?text=Hello+Panda+Strawberry' },
-                { id: 414, name: 'Hello Panda (Chocolate)', price: 169, mrp: 180, image: 'https://placehold.co/400x400/D2B48C/black?text=Hello+Panda+Chocolate' },
-                { id: 415, name: 'Poko Loko Bubble Tape', price: 259, mrp: 280, image: 'https://placehold.co/400x400/FFC0CB/black?text=Poko+Loko+Bubble+Tape' },
-
-                // New Products from user's request
-                // Prime Drinks (Limited Editions)
-                { id: 501, name: 'Prime FC Barcelona', price: 600, mrp: 650, image: 'https://placehold.co/400x400/A50044/white?text=Prime+FCB' },
-                { id: 502, name: 'Prime Berry Freeze', price: 600, mrp: 650, image: 'https://placehold.co/400x400/8A2BE2/white?text=Prime+Berry+Freeze' },
-                { id: 503, name: 'Prime Glow Berry', price: 600, mrp: 650, image: 'https://placehold.co/400x400/F0F8FF/black?text=Prime+Glow+Berry' },
-                { id: 504, name: 'Prime Arsenal', price: 600, mrp: 650, image: 'https://placehold.co/400x400/EF0107/white?text=Prime+Arsenal' },
-                { id: 505, name: 'Prime IShowSpeed', price: 600, mrp: 650, image: 'https://placehold.co/400x400/FFD700/black?text=Prime+IShowSpeed' },
-                { id: 506, name: 'Prime Strawberry Banana', price: 599, mrp: 649, image: 'https://placehold.co/400x400/FFC0CB/white?text=Prime+Strawberry+Banana' },
+                // Other Beverages
+                { id: 1101, name: 'Vanilla Coca-Cola', price: 269, mrp: 290, image: 'https://placehold.co/400x400/F5F5DC/black?text=Vanilla+Coke', category: 'Other Beverages' },
+                { id: 1102, name: 'Coca-Cola Lemon Soft Drink', price: 277, mrp: 300, image: 'https://placehold.co/400x400/FFFF00/black?text=Coke+Lemon', category: 'Other Beverages' },
+                { id: 1103, name: 'Bar Ice Cream Soda', price: 277, mrp: 300, image: 'https://placehold.co/400x400/B0E0E6/black?text=Bar+Ice+Cream+Soda', category: 'Other Beverages' },
+                { id: 1104, name: 'Starbucks Creamy Coffee', price: 379, mrp: 400, image: 'https://placehold.co/400x400/8B4513/white?text=Starbucks+Creamy+Coffee', category: 'Other Beverages' },
+                { id: 1105, name: 'American Style Basil Seed Watermelon Drink', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF6347/white?text=Basil+Seed+Watermelon', category: 'Other Beverages' },
+                { id: 1106, name: 'American Style Basil Seed Kiwi Drink', price: 149, mrp: 160, image: 'https://placehold.co/400x400/8A2BE2/white?text=Basil+Seed+Kiwi', category: 'Other Beverages' },
+                { id: 401, name: 'Zero Alcohol Vodka', price: 299, mrp: 350, image: 'https://placehold.co/400x400/A9A9A9/white?text=Zero+Alcohol+Vodka', category: 'Other Beverages' },
+                { id: 408, name: 'White Monster Energy', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FFFFFF/black?text=White+Monster', category: 'Other Beverages' },
+                { id: 409, name: 'Golden Red Bull', price: 399, mrp: 450, image: 'https://placehold.co/400x400/FFD700/black?text=Golden+Red+Bull', category: 'Other Beverages' },
+                { id: 411, name: 'Swami Sparkling Water', price: 149, mrp: 160, image: 'https://placehold.co/400x400/D3D3D3/black?text=Swami+Sparkling', category: 'Other Beverages' },
+                { id: 412, name: 'Starbucks Coffee (Caramel)', price: 379, mrp: 400, image: 'https://placehold.co/400x400/8B4513/white?text=Starbucks+Caramel', category: 'Other Beverages' },
+                { id: 403, name: "Jimmy's Cocktail (Green Apple)", price: 159, mrp: 180, image: 'https://placehold.co/400x400/98FB98/black?text=Jimmy%27s+Green+Apple', category: 'Other Beverages' },
 
 
-                // Poko Loko Drinks
-                { id: 601, name: 'Poko Loko Mango', price: 99, mrp: 110, image: 'https://placehold.co/400x400/FFBF00/black?text=Poko+Loko+Mango' },
-                { id: 602, name: 'Poko Loko Orange', price: 99, mrp: 110, image: 'https://placehold.co/400x400/FFA500/white?text=Poko+Loko+Orange' },
-                { id: 603, name: 'Poko Loko Lychee', price: 99, mrp: 110, image: 'https://placehold.co/400x400/F0FFF0/black?text=Poko+Loko+Lychee' },
-                { id: 604, name: 'Poko Loko Grape', price: 99, mrp: 110, image: 'https://placehold.co/400x400/800080/white?text=Poko+Loko+Grape' },
-                { id: 605, name: 'Poko Loko Strawberry', price: 99, mrp: 110, image: 'https://placehold.co/400x400/FF69B4/black?text=Poko+Loko+Strawberry' },
+                // Candies & Chewing Gums
+                { id: 402, name: 'Skittles Pack of 20 (MX Player)', price: 799, mrp: 850, image: 'https://placehold.co/400x400/FF0000/white?text=Skittles+20+Pack', category: 'Candies & Chewing Gums' },
+                { id: 405, name: 'Skittles (Purple)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/800080/white?text=Skittles+Purple', category: 'Candies & Chewing Gums' },
+                { id: 406, name: 'Skittles (Red)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF0000/white?text=Skittles+Red', category: 'Candies & Chewing Gums' },
+                { id: 407, name: 'Ice Breakers Chewing Gum', price: 749, mrp: 800, image: 'https://placehold.co/400x400/ADD8E6/black?text=Ice+Breakers', category: 'Candies & Chewing Gums' },
+                { id: 415, name: 'Poko Loko Bubble Tape', price: 259, mrp: 280, image: 'https://placehold.co/400x400/FFC0CB/black?text=Poko+Loko+Bubble+Tape', category: 'Candies & Chewing Gums' },
+                { id: 701, name: 'Fusen Berry (Chewing Gum)', price: 199, mrp: 220, image: 'https://placehold.co/400x400/C71585/white?text=Fusen+Berry', category: 'Candies & Chewing Gums' },
+                { id: 702, name: 'Banana (Chewing Gum)', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FFD700/black?text=Banana+Gum', category: 'Candies & Chewing Gums' },
+                { id: 703, name: 'Mint (Chewing Gum)', price: 199, mrp: 220, image: 'https://placehold.co/400x400/98FB98/black?text=Mint+Gum', category: 'Candies & Chewing Gums' },
+                { id: 704, name: 'Impact Mint Candies Cricket Limited Edition (Peppermint)', price: 99, mrp: 110, image: 'https://placehold.co/400x400/66CDAA/white?text=Impact+Mint', category: 'Candies & Chewing Gums' },
+                { id: 705, name: 'Impactment Strike Chewing Gum (Spearmint Flavor)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/7FFFD4/black?text=Impact+Spearmint', category: 'Candies & Chewing Gums' },
+                { id: 801, name: 'Poko Loko Troffecho Strawberry Flavor', price: 249, mrp: 270, image: 'https://placehold.co/400x400/FFC0CB/black?text=Poko+Loko+Strawberry+Troffecho', category: 'Candies & Chewing Gums' },
+                { id: 802, name: 'Poko Loko Mix Fruit Flavor Candy', price: 199, mrp: 220, image: 'https://placehold.co/400x400/F0F8FF/black?text=Poko+Loko+Mix+Fruit', category: 'Candies & Chewing Gums' },
+                { id: 803, name: 'Poko Loko Strawberry Sour Tape Candy', price: 99, mrp: 110, image: 'https://placehold.co/400x400/FF69B4/black?text=Poko+Loko+Sour+Tape', category: 'Candies & Chewing Gums' },
+                { id: 804, name: 'Poko Loko Truti Fruit (Grape)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/800080/white?text=Poko+Loko+Truti+Grape', category: 'Candies & Chewing Gums' },
+                { id: 805, name: 'Poko Loko Truti Fruit (Strawberry)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF69B4/black?text=Poko+Loko+Truti+Strawberry', category: 'Candies & Chewing Gums' },
+                { id: 901, name: 'Blueberry Candy Stick', price: 79, mrp: 90, image: 'https://placehold.co/400x400/4682B4/white?text=Blueberry+Stick', category: 'Candies & Chewing Gums' },
+                { id: 902, name: 'Sour Punk Rainbow Candy', price: 79, mrp: 90, image: 'https://placehold.co/400x400/FF1493/white?text=Sour+Punk+Rainbow', category: 'Candies & Chewing Gums' },
+                { id: 903, name: 'Sour Punk Cola Flavor', price: 79, mrp: 90, image: 'https://placehold.co/400x400/D2B48C/black?text=Sour+Punk+Cola', category: 'Candies & Chewing Gums' },
+                { id: 904, name: 'Fox Crystal Clear Berry Flavour Candy', price: 149, mrp: 160, image: 'https://placehold.co/400x400/8A2BE2/white?text=Fox+Berry+Candy', category: 'Candies & Chewing Gums' },
+                { id: 905, name: 'Mix Fruit Candy (Pack of 20)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FFC0CB/black?text=Mix+Fruit+20+Pack', category: 'Candies & Chewing Gums' },
 
-                // Chewing Gums
-                { id: 701, name: 'Fusen Berry (Chewing Gum)', price: 199, mrp: 220, image: 'https://placehold.co/400x400/C71585/white?text=Fusen+Berry' },
-                { id: 702, name: 'Banana (Chewing Gum)', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FFD700/black?text=Banana+Gum' },
-                { id: 703, name: 'Mint (Chewing Gum)', price: 199, mrp: 220, image: 'https://placehold.co/400x400/98FB98/black?text=Mint+Gum' },
-                { id: 704, name: 'Impact Mint Candies Cricket Limited Edition (Peppermint)', price: 99, mrp: 110, image: 'https://placehold.co/400x400/66CDAA/white?text=Impact+Mint' },
-                { id: 705, name: 'Impactment Strike Chewing Gum (Spearmint Flavor)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/7FFFD4/black?text=Impact+Spearmint' },
-
-                // Poko Loko Candies
-                { id: 801, name: 'Poko Loko Troffecho Strawberry Flavor', price: 249, mrp: 270, image: 'https://placehold.co/400x400/FFC0CB/black?text=Poko+Loko+Strawberry+Troffecho' },
-                { id: 802, name: 'Poko Loko Mix Fruit Flavor Candy', price: 199, mrp: 220, image: 'https://placehold.co/400x400/F0F8FF/black?text=Poko+Loko+Mix+Fruit' },
-                { id: 803, name: 'Poko Loko Strawberry Sour Tape Candy', price: 99, mrp: 110, image: 'https://placehold.co/400x400/FF69B4/black?text=Poko+Loko+Sour+Tape' },
-                { id: 804, name: 'Poko Loko Truti Fruit (Grape)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/800080/white?text=Poko+Loko+Truti+Grape' },
-                { id: 805, name: 'Poko Loko Truti Fruit (Strawberry)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF69B4/black?text=Poko+Loko+Truti+Strawberry' },
-
-
-                // Other Candies
-                { id: 901, name: 'Blueberry Candy Stick', price: 79, mrp: 90, image: 'https://placehold.co/400x400/4682B4/white?text=Blueberry+Stick' },
-                { id: 902, name: 'Sour Punk Rainbow Candy', price: 79, mrp: 90, image: 'https://placehold.co/400x400/FF1493/white?text=Sour+Punk+Rainbow' },
-                { id: 903, name: 'Sour Punk Cola Flavor', price: 79, mrp: 90, image: 'https://placehold.co/400x400/D2B48C/black?text=Sour+Punk+Cola' },
-                { id: 904, name: 'Fox Crystal Clear Berry Flavour Candy', price: 149, mrp: 160, image: 'https://placehold.co/400x400/8A2BE2/white?text=Fox+Berry+Candy' },
-                { id: 905, name: 'Mix Fruit Candy (Pack of 20)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FFC0CB/black?text=Mix+Fruit+20+Pack' },
-
-
-                // Americana Sugar-Free Mints
-                { id: 1001, name: 'Americana Grapefruit Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FF7F50/white?text=Americana+Grapefruit' },
-                { id: 1002, name: 'Americana Peach Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FFDAB9/black?text=Americana+Peach' },
-                { id: 1003, name: 'Americana Passion Fruit Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FFD700/black?text=Americana+Passion+Fruit' },
-
-                // Beverages
-                { id: 1101, name: 'Vanilla Coca-Cola', price: 269, mrp: 290, image: 'https://placehold.co/400x400/F5F5DC/black?text=Vanilla+Coke' },
-                { id: 1102, name: 'Coca-Cola Lemon Soft Drink', price: 277, mrp: 300, image: 'https://placehold.co/400x400/FFFF00/black?text=Coke+Lemon' },
-                { id: 1103, name: 'Bar Ice Cream Soda', price: 277, mrp: 300, image: 'https://placehold.co/400x400/B0E0E6/black?text=Bar+Ice+Cream+Soda' },
-                { id: 1104, name: 'Starbucks Creamy Coffee', price: 379, mrp: 400, image: 'https://placehold.co/400x400/8B4513/white?text=Starbucks+Creamy+Coffee' },
-                { id: 1105, name: 'American Style Basil Seed Watermelon Drink', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF6347/white?text=Basil+Seed+Watermelon' },
-                { id: 1106, name: 'American Style Basil Seed Kiwi Drink', price: 149, mrp: 160, image: 'https://placehold.co/400x400/8A2BE2/white?text=Basil+Seed+Kiwi' },
-
-
-                // Chocolates
-                { id: 1201, name: 'Toblerone Dark Chocolate Flavor', price: 399, mrp: 430, image: 'https://placehold.co/400x400/2F4F4F/white?text=Toblerone+Dark' }
+                // Mints & Chocolates
+                { id: 1001, name: 'Americana Grapefruit Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FF7F50/white?text=Americana+Grapefruit', category: 'Mints & Chocolates' },
+                { id: 1002, name: 'Americana Peach Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FFDAB9/black?text=Americana+Peach', category: 'Mints & Chocolates' },
+                { id: 1003, name: 'Americana Passion Fruit Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FFD700/black?text=Americana+Passion+Fruit', category: 'Mints & Chocolates' },
+                { id: 1201, name: 'Toblerone Dark Chocolate Flavor', price: 399, mrp: 430, image: 'https://placehold.co/400x400/2F4F4F/white?text=Toblerone+Dark', category: 'Mints & Chocolates' },
+                { id: 404, name: 'Maltesers', price: 149, mrp: 165, image: 'https://placehold.co/400x400/8B4513/white?text=Maltesers', category: 'Mints & Chocolates' },
+                { id: 410, name: 'Feastables', price: 599, mrp: 650, image: 'https://placehold.co/400x400/A0522D/white?text=Feastables', category: 'Mints & Chocolates' },
+                { id: 413, name: 'Hello Panda (Strawberry)', price: 169, mrp: 180, image: 'https://placehold.co/400x400/FFB6C1/black?text=Hello+Panda+Strawberry', category: 'Mints & Chocolates' },
+                { id: 414, name: 'Hello Panda (Chocolate)', price: 169, mrp: 180, image: 'https://placehold.co/400x400/D2B48C/black?text=Hello+Panda+Chocolate', category: 'Mints & Chocolates' }
             ];
 
             const DELIVERY_CHARGE = 30; // Define delivery charge
 
             // --- DOM ELEMENTS ---
-            const productGrid = document.getElementById('products');
+            const productSectionsContainer = document.getElementById('product-sections');
             const cartButton = document.getElementById('open-cart-btn');
             const cartModal = document.getElementById('cart-modal');
             const closeCartButton = document.getElementById('close-cart-btn');
@@ -851,6 +858,7 @@
             const couponMessage = document.getElementById('coupon-message');
             const discountAppliedMessage = document.getElementById('discount-applied');
             const deliveryChargeDisplay = document.getElementById('delivery-charge');
+            const searchInput = document.getElementById('search-input');
 
 
             // Load cart from browser's local storage
@@ -859,31 +867,53 @@
             let appliedCouponCode = ''; // Stores the currently applied coupon code
 
             // --- CORE FUNCTIONS ---
-            function renderProducts() {
-                productGrid.innerHTML = '';
-                products.forEach(product => {
-                    const productCard = document.createElement('div');
-                    productCard.className = 'product-card';
+            function renderProducts(filterText = '') {
+                productSectionsContainer.innerHTML = ''; // Clear existing products
 
-                    let priceHtml = `<p class="product-price">₹${product.price.toFixed(2)}`;
-                    if (product.mrp && product.price < product.mrp) {
-                        const discountPercentage = (((product.mrp - product.price) / product.mrp) * 100).toFixed(0);
-                        priceHtml += `<span class="mrp">MRP ₹${product.mrp.toFixed(2)}</span>`;
-                        priceHtml += `<span class="discount-percent">(${discountPercentage}% OFF)</span>`;
+                const groupedProducts = products.reduce((acc, product) => {
+                    if (!acc[product.category]) {
+                        acc[product.category] = [];
                     }
-                    priceHtml += `</p>`;
+                    // Filter by search text (case-insensitive)
+                    if (product.name.toLowerCase().includes(filterText.toLowerCase())) {
+                        acc[product.category].push(product);
+                    }
+                    return acc;
+                }, {});
 
+                for (const category in groupedProducts) {
+                    // Only render category if it has products matching the filter
+                    if (groupedProducts[category].length > 0) {
+                        const categorySection = document.createElement('div');
+                        categorySection.className = 'product-category';
+                        categorySection.innerHTML = `<h2>${category}</h2><div class="product-grid"></div>`;
+                        productSectionsContainer.appendChild(categorySection);
 
-                    productCard.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">${product.name}</h3>
-                            ${priceHtml}
-                            <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
-                        </div>
-                    `;
-                    productGrid.appendChild(productCard);
-                });
+                        const productGrid = categorySection.querySelector('.product-grid');
+                        groupedProducts[category].forEach(product => {
+                            const productCard = document.createElement('div');
+                            productCard.className = 'product-card';
+
+                            let priceHtml = `<p class="product-price">₹${product.price.toFixed(2)}`;
+                            if (product.mrp && product.price < product.mrp) {
+                                const discountPercentage = (((product.mrp - product.price) / product.mrp) * 100).toFixed(0);
+                                priceHtml += `<span class="mrp">MRP ₹${product.mrp.toFixed(2)}</span>`;
+                                priceHtml += `<span class="discount-percent">(${discountPercentage}% OFF)</span>`;
+                            }
+                            priceHtml += `</p>`;
+
+                            productCard.innerHTML = `
+                                <img src="${product.image}" alt="${product.name}" class="product-image">
+                                <div class="product-info">
+                                    <h3 class="product-name">${product.name}</h3>
+                                    ${priceHtml}
+                                    <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                                </div>
+                            `;
+                            productGrid.appendChild(productCard);
+                        });
+                    }
+                }
             }
 
             function addToCart(productId) {
@@ -931,7 +961,7 @@
                 }
 
                 // Add delivery charge if total is not zero (after discounts)
-                if (total > 0) {
+                if (total > 0 && subtotal > 0) { // Only add delivery charge if there are items and total is not zero
                     total += DELIVERY_CHARGE;
                 }
                 return total;
@@ -944,7 +974,7 @@
                 const finalTotal = calculateTotal();
                 cartTotalSpan.textContent = finalTotal.toFixed(2);
 
-                if (appliedCouponCode && finalTotal === 0) {
+                if (appliedCouponCode && finalTotal === 0 && cart.length > 0) { // Check if cart is not empty for 100% off message
                     discountAppliedMessage.textContent = "(Applied: " + appliedCouponCode + " - 100% OFF)";
                     discountAppliedMessage.style.display = 'block';
                 } else if (appliedCouponCode && currentDiscount > 0) {
@@ -954,17 +984,28 @@
                     discountAppliedMessage.style.display = 'none';
                 }
 
-                // Display delivery charge clearly
-                deliveryChargeDisplay.textContent = `Delivery Charge: ₹${DELIVERY_CHARGE.toFixed(2)}`;
+                // Display delivery charge clearly, hide if cart is empty
+                if (cart.length === 0) {
+                    deliveryChargeDisplay.style.display = 'none';
+                } else {
+                    deliveryChargeDisplay.style.display = 'block';
+                    deliveryChargeDisplay.textContent = `Delivery Charge: ₹${DELIVERY_CHARGE.toFixed(2)}`;
+                }
+
 
                 updateOrderSummaryForForm();
             }
 
             function updateOrderSummaryForForm() {
                 let summary = 'Order Details:\n';
-                cart.forEach(item => {
-                    summary += `- ${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}\n`;
-                });
+                if (cart.length === 0) {
+                    summary += "No items in cart.\n";
+                } else {
+                    cart.forEach(item => {
+                        summary += `- ${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}\n`;
+                    });
+                }
+
 
                 const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
                 summary += `\nSubtotal: ₹${subtotal.toFixed(2)}`;
@@ -978,7 +1019,11 @@
                     }
                 }
 
-                summary += `\nDelivery Charge: ₹${DELIVERY_CHARGE.toFixed(2)}`;
+                // Add delivery charge to summary only if applicable
+                if (subtotal > 0 && calculateTotal() > 0) { // Check subtotal > 0 to ensure items exist
+                     summary += `\nDelivery Charge: ₹${DELIVERY_CHARGE.toFixed(2)}`;
+                }
+
 
                 const finalTotal = calculateTotal();
                 summary += `\nGRAND TOTAL: ₹${finalTotal.toFixed(2)}`;
@@ -992,6 +1037,13 @@
                 appliedCouponCode = ''; // Reset applied coupon
                 couponMessage.textContent = '';
                 couponMessage.className = '';
+
+                if (cart.length === 0) {
+                    couponMessage.textContent = 'Add items to your cart before applying a coupon.';
+                    couponMessage.classList.add('error');
+                    updateCartUI(); // Ensure UI reflects no discount
+                    return;
+                }
 
                 if (couponCode === 'DARSHIL15' || couponCode === 'SPECIALFRND') {
                     currentDiscount = 15;
@@ -1023,7 +1075,7 @@
             }
 
             // --- EVENT LISTENERS ---
-            productGrid.addEventListener('click', (e) => {
+            productSectionsContainer.addEventListener('click', (e) => {
                 if (e.target.classList.contains('add-to-cart-btn')) {
                     const productId = parseInt(e.target.getAttribute('data-id'));
                     addToCart(productId);
@@ -1063,6 +1115,10 @@
                 if (e.key === 'Enter') {
                     applyCoupon();
                 }
+            });
+
+            searchInput.addEventListener('input', (e) => {
+                renderProducts(e.target.value);
             });
 
             // --- INITIALIZATION ---
