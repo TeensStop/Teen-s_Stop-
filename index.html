@@ -408,6 +408,15 @@
             color: var(--success-green);
         }
 
+        #delivery-charge {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            margin-top: -15px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+
         /* Coupon Code Section */
         .coupon-section {
             margin-top: 20px;
@@ -682,6 +691,7 @@
                 Total: ₹<span id="cart-total">0.00</span>
                 <p id="discount-applied" style="font-size:0.9em; color:var(--coupon-success); display:none;">(Discount Applied)</p>
             </div>
+            <p id="delivery-charge">Delivery Charge: ₹30.00</p>
             <hr>
             <h2>Checkout Information</h2>
             <form id="checkout-form" action="https://formsubmit.co/teensstopofficial@gmail.com" method="POST">
@@ -772,6 +782,8 @@
                 { id: 503, name: 'Prime Glow Berry', price: 600, mrp: 650, image: 'https://placehold.co/400x400/F0F8FF/black?text=Prime+Glow+Berry' },
                 { id: 504, name: 'Prime Arsenal', price: 600, mrp: 650, image: 'https://placehold.co/400x400/EF0107/white?text=Prime+Arsenal' },
                 { id: 505, name: 'Prime IShowSpeed', price: 600, mrp: 650, image: 'https://placehold.co/400x400/FFD700/black?text=Prime+IShowSpeed' },
+                { id: 506, name: 'Prime Strawberry Banana', price: 599, mrp: 649, image: 'https://placehold.co/400x400/FFC0CB/white?text=Prime+Strawberry+Banana' },
+
 
                 // Poko Loko Drinks
                 { id: 601, name: 'Poko Loko Mango', price: 99, mrp: 110, image: 'https://placehold.co/400x400/FFBF00/black?text=Poko+Loko+Mango' },
@@ -794,10 +806,14 @@
                 { id: 804, name: 'Poko Loko Truti Fruit (Grape)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/800080/white?text=Poko+Loko+Truti+Grape' },
                 { id: 805, name: 'Poko Loko Truti Fruit (Strawberry)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF69B4/black?text=Poko+Loko+Truti+Strawberry' },
 
+
                 // Other Candies
                 { id: 901, name: 'Blueberry Candy Stick', price: 79, mrp: 90, image: 'https://placehold.co/400x400/4682B4/white?text=Blueberry+Stick' },
                 { id: 902, name: 'Sour Punk Rainbow Candy', price: 79, mrp: 90, image: 'https://placehold.co/400x400/FF1493/white?text=Sour+Punk+Rainbow' },
                 { id: 903, name: 'Sour Punk Cola Flavor', price: 79, mrp: 90, image: 'https://placehold.co/400x400/D2B48C/black?text=Sour+Punk+Cola' },
+                { id: 904, name: 'Fox Crystal Clear Berry Flavour Candy', price: 149, mrp: 160, image: 'https://placehold.co/400x400/8A2BE2/white?text=Fox+Berry+Candy' },
+                { id: 905, name: 'Mix Fruit Candy (Pack of 20)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FFC0CB/black?text=Mix+Fruit+20+Pack' },
+
 
                 // Americana Sugar-Free Mints
                 { id: 1001, name: 'Americana Grapefruit Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FF7F50/white?text=Americana+Grapefruit' },
@@ -808,10 +824,16 @@
                 { id: 1101, name: 'Vanilla Coca-Cola', price: 269, mrp: 290, image: 'https://placehold.co/400x400/F5F5DC/black?text=Vanilla+Coke' },
                 { id: 1102, name: 'Coca-Cola Lemon Soft Drink', price: 277, mrp: 300, image: 'https://placehold.co/400x400/FFFF00/black?text=Coke+Lemon' },
                 { id: 1103, name: 'Bar Ice Cream Soda', price: 277, mrp: 300, image: 'https://placehold.co/400x400/B0E0E6/black?text=Bar+Ice+Cream+Soda' },
+                { id: 1104, name: 'Starbucks Creamy Coffee', price: 379, mrp: 400, image: 'https://placehold.co/400x400/8B4513/white?text=Starbucks+Creamy+Coffee' },
+                { id: 1105, name: 'American Style Basil Seed Watermelon Drink', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF6347/white?text=Basil+Seed+Watermelon' },
+                { id: 1106, name: 'American Style Basil Seed Kiwi Drink', price: 149, mrp: 160, image: 'https://placehold.co/400x400/8A2BE2/white?text=Basil+Seed+Kiwi' },
+
 
                 // Chocolates
                 { id: 1201, name: 'Toblerone Dark Chocolate Flavor', price: 399, mrp: 430, image: 'https://placehold.co/400x400/2F4F4F/white?text=Toblerone+Dark' }
             ];
+
+            const DELIVERY_CHARGE = 30; // Define delivery charge
 
             // --- DOM ELEMENTS ---
             const productGrid = document.getElementById('products');
@@ -828,6 +850,8 @@
             const applyCouponBtn = document.getElementById('apply-coupon-btn');
             const couponMessage = document.getElementById('coupon-message');
             const discountAppliedMessage = document.getElementById('discount-applied');
+            const deliveryChargeDisplay = document.getElementById('delivery-charge');
+
 
             // Load cart from browser's local storage
             let cart = JSON.parse(localStorage.getItem('teensStopCart')) || [];
@@ -897,12 +921,18 @@
             }
 
             function calculateTotal() {
-                let total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                let total = subtotal;
 
                 if (currentDiscount === 100) { // NSL100 coupon
                     total = 0;
                 } else if (currentDiscount > 0) { // Darshil15 coupon (15%)
                     total = total * (1 - (currentDiscount / 100));
+                }
+
+                // Add delivery charge if total is not zero (after discounts)
+                if (total > 0) {
+                    total += DELIVERY_CHARGE;
                 }
                 return total;
             }
@@ -924,6 +954,9 @@
                     discountAppliedMessage.style.display = 'none';
                 }
 
+                // Display delivery charge clearly
+                deliveryChargeDisplay.textContent = `Delivery Charge: ₹${DELIVERY_CHARGE.toFixed(2)}`;
+
                 updateOrderSummaryForForm();
             }
 
@@ -944,6 +977,8 @@
                         summary += ` (${currentDiscount}% OFF)`;
                     }
                 }
+
+                summary += `\nDelivery Charge: ₹${DELIVERY_CHARGE.toFixed(2)}`;
 
                 const finalTotal = calculateTotal();
                 summary += `\nGRAND TOTAL: ₹${finalTotal.toFixed(2)}`;
