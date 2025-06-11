@@ -926,7 +926,7 @@
 
                 if (currentDiscount === 100) { // NSL100 coupon
                     total = 0;
-                } else if (currentDiscount > 0) { // Darshil15 coupon (15%)
+                } else if (currentDiscount > 0) { // Darshil15 or SpecialFrnd coupon (15%)
                     total = total * (1 - (currentDiscount / 100));
                 }
 
@@ -993,10 +993,10 @@
                 couponMessage.textContent = '';
                 couponMessage.className = '';
 
-                if (couponCode === 'DARSHIL15') {
+                if (couponCode === 'DARSHIL15' || couponCode === 'SPECIALFRND') {
                     currentDiscount = 15;
-                    appliedCouponCode = 'DARSHIL15';
-                    couponMessage.textContent = 'Coupon "DARSHIL15" applied! You get 15% off.';
+                    appliedCouponCode = couponCode;
+                    couponMessage.textContent = `Coupon "${couponCode}" applied! You get 15% off.`;
                     couponMessage.classList.add('success');
                 } else if (couponCode === 'NSL100') {
                     currentDiscount = 100;
