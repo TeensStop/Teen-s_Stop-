@@ -209,11 +209,78 @@
             transform: translateY(-3px);
         }
 
+        /* --- Category Cards --- */
+        .category-overview {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .category-overview h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .category-overview h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-orange);
+            border-radius: 2px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .category-card {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 150px;
+        }
+
+        .category-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .category-card i {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .category-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
 
         /* --- Product Grid --- */
         .product-category {
             margin-top: 40px;
             margin-bottom: 30px;
+            padding-top: 20px; /* Add padding for smooth scroll target */
         }
 
         .product-category h2 {
@@ -588,12 +655,13 @@
             }
 
             .search-bar {
-                display: none; /* Hide search bar on smaller screens for simplicity */
+                margin: 15px 0 0;
+                order: 3; /* Move search bar below store name and cart on smaller screens */
             }
 
             header .container {
-                justify-content: center;
                 flex-wrap: wrap;
+                justify-content: center;
                 gap: 15px;
             }
 
@@ -603,6 +671,11 @@
 
             .hero p {
                 font-size: 1rem;
+            }
+
+            .category-grid {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 15px;
             }
 
             .product-grid {
@@ -633,6 +706,9 @@
             }
             .hero p {
                 font-size: 0.9rem;
+            }
+            .category-grid {
+                grid-template-columns: 1fr; /* Stack categories on very small screens */
             }
             .product-grid {
                 grid-template-columns: 1fr; /* Stack products on very small screens */
@@ -685,8 +761,14 @@
             <div class="hero-content">
                 <h1>Quench Your Thirst!</h1>
                 <p>Your ultimate hub for the coolest Prime and Kato drinks in Navsari!</p>
-                <button class="shop-now-btn" onclick="document.getElementById('product-sections').scrollIntoView({ behavior: 'smooth' });">Explore Drinks</button>
+                <button class="shop-now-btn" onclick="document.getElementById('category-overview').scrollIntoView({ behavior: 'smooth' });">Explore Drinks</button>
             </div>
+        </section>
+
+        <section id="category-overview" class="category-overview">
+            <h2>Shop by Category</h2>
+            <div class="category-grid" id="category-grid">
+                </div>
         </section>
 
         <section id="product-sections">
@@ -844,6 +926,7 @@
 
             // --- DOM ELEMENTS ---
             const productSectionsContainer = document.getElementById('product-sections');
+            const categoryGrid = document.getElementById('category-grid');
             const cartButton = document.getElementById('open-cart-btn');
             const cartModal = document.getElementById('cart-modal');
             const closeCartButton = document.getElementById('close-cart-btn');
@@ -867,53 +950,95 @@
             let appliedCouponCode = ''; // Stores the currently applied coupon code
 
             // --- CORE FUNCTIONS ---
+            function getUniqueCategories() {
+                const categories = new Set();
+                products.forEach(product => categories.add(product.category));
+                return Array.from(categories);
+            }
+
+            function getCategoryIcon(categoryName) {
+                switch (categoryName) {
+                    case 'Prime Energy Drinks': return 'fa-bolt';
+                    case 'Prime Hydration Drinks': return 'fa-bottle-water';
+                    case 'Limited Edition Prime': return 'fa-star';
+                    case 'Kato Drinks': return 'fa-wine-glass-alt';
+                    case 'Other Beverages': return 'fa-coffee';
+                    case 'Candies & Chewing Gums': return 'fa-candy-cane';
+                    case 'Mints & Chocolates': return 'fa-chocolate';
+                    default: return 'fa-cube';
+                }
+            }
+
+            function renderCategoryCards() {
+                categoryGrid.innerHTML = '';
+                const categories = getUniqueCategories();
+                categories.forEach(category => {
+                    const categoryCard = document.createElement('div');
+                    categoryCard.className = 'category-card';
+                    categoryCard.setAttribute('data-category', category);
+                    categoryCard.innerHTML = `
+                        <i class="fas ${getCategoryIcon(category)}"></i>
+                        <h3>${category}</h3>
+                    `;
+                    categoryGrid.appendChild(categoryCard);
+
+                    categoryCard.addEventListener('click', () => {
+                        const targetSection = document.getElementById(`category-${category.replace(/\s+/g, '-').toLowerCase()}`);
+                        if (targetSection) {
+                            targetSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+            }
+
             function renderProducts(filterText = '') {
                 productSectionsContainer.innerHTML = ''; // Clear existing products
 
                 const groupedProducts = products.reduce((acc, product) => {
-                    if (!acc[product.category]) {
-                        acc[product.category] = [];
-                    }
                     // Filter by search text (case-insensitive)
                     if (product.name.toLowerCase().includes(filterText.toLowerCase())) {
+                        if (!acc[product.category]) {
+                            acc[product.category] = [];
+                        }
                         acc[product.category].push(product);
                     }
                     return acc;
                 }, {});
 
-                for (const category in groupedProducts) {
-                    // Only render category if it has products matching the filter
-                    if (groupedProducts[category].length > 0) {
-                        const categorySection = document.createElement('div');
-                        categorySection.className = 'product-category';
-                        categorySection.innerHTML = `<h2>${category}</h2><div class="product-grid"></div>`;
-                        productSectionsContainer.appendChild(categorySection);
+                // Sort categories to maintain consistent order, or you can define a custom order
+                const sortedCategories = getUniqueCategories().filter(category => groupedProducts[category] && groupedProducts[category].length > 0);
 
-                        const productGrid = categorySection.querySelector('.product-grid');
-                        groupedProducts[category].forEach(product => {
-                            const productCard = document.createElement('div');
-                            productCard.className = 'product-card';
+                sortedCategories.forEach(category => {
+                    const categorySection = document.createElement('div');
+                    categorySection.className = 'product-category';
+                    categorySection.id = `category-${category.replace(/\s+/g, '-').toLowerCase()}`; // Unique ID for direct linking
+                    categorySection.innerHTML = `<h2>${category}</h2><div class="product-grid"></div>`;
+                    productSectionsContainer.appendChild(categorySection);
 
-                            let priceHtml = `<p class="product-price">₹${product.price.toFixed(2)}`;
-                            if (product.mrp && product.price < product.mrp) {
-                                const discountPercentage = (((product.mrp - product.price) / product.mrp) * 100).toFixed(0);
-                                priceHtml += `<span class="mrp">MRP ₹${product.mrp.toFixed(2)}</span>`;
-                                priceHtml += `<span class="discount-percent">(${discountPercentage}% OFF)</span>`;
-                            }
-                            priceHtml += `</p>`;
+                    const productGrid = categorySection.querySelector('.product-grid');
+                    groupedProducts[category].forEach(product => {
+                        const productCard = document.createElement('div');
+                        productCard.className = 'product-card';
 
-                            productCard.innerHTML = `
-                                <img src="${product.image}" alt="${product.name}" class="product-image">
-                                <div class="product-info">
-                                    <h3 class="product-name">${product.name}</h3>
-                                    ${priceHtml}
-                                    <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
-                                </div>
-                            `;
-                            productGrid.appendChild(productCard);
-                        });
-                    }
-                }
+                        let priceHtml = `<p class="product-price">₹${product.price.toFixed(2)}`;
+                        if (product.mrp && product.price < product.mrp) {
+                            const discountPercentage = (((product.mrp - product.price) / product.mrp) * 100).toFixed(0);
+                            priceHtml += `<span class="mrp">MRP ₹${product.mrp.toFixed(2)}</span>`;
+                            priceHtml += `<span class="discount-percent">(${discountPercentage}% OFF)</span>`;
+                        }
+                        priceHtml += `</p>`;
+
+                        productCard.innerHTML = `
+                            <img src="${product.image}" alt="${product.name}" class="product-image">
+                            <div class="product-info">
+                                <h3 class="product-name">${product.name}</h3>
+                                ${priceHtml}
+                                <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                            </div>
+                        `;
+                        productGrid.appendChild(productCard);
+                    });
+                });
             }
 
             function addToCart(productId) {
@@ -1122,8 +1247,9 @@
             });
 
             // --- INITIALIZATION ---
-            renderProducts();
-            updateCart(); // Initial cart update
+            renderCategoryCards(); // Render category cards first
+            renderProducts();      // Then render all products by category
+            updateCart();          // Initial cart update
             togglePaymentDetails(); // Set initial visibility for UPI QR code
         });
     </script>
