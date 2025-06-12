@@ -30,8 +30,6 @@
             font-family: 'Inter', sans-serif;
             margin: 0;
             background-color: var(--background-light);
-            /* Premium subtle background pattern */
-            background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23e0e0e0" fill-opacity="0.2" fill-rule="evenodd"%3E%3Cpath d="M5 0h1L0 6V5zM6 5v1H5z"/%3E%3C/g%3E%3C/svg%3E');
             color: var(--text-dark);
             line-height: 1.6;
             scroll-behavior: smooth;
@@ -174,11 +172,10 @@
             left: 0;
             right: 0;
             bottom: 0;
-            /* Using a more abstract, high-res background for premium feel */
-            background: url('https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
-            opacity: 0.25; /* Adjusted opacity for better blending */
+            background: url('https://source.unsplash.com/random/1200x400/?drinks,beverages,refreshment,gradient') no-repeat center center/cover;
+            opacity: 0.3; /* Increased opacity for better blending */
             z-index: 0;
-            filter: brightness(0.9) grayscale(0.2); /* Slightly darken and desaturate for depth */
+            filter: brightness(0.8); /* Slightly darken the background image */
         }
 
         .hero-content {
@@ -446,7 +443,6 @@
             position: relative;
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             animation: slideInFromTop 0.4s ease-out forwards;
-            background-image: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23f0f0f0" fill-opacity="0.2" fill-rule="evenodd"%3E%3Cpath d="M5 0h1L0 6V5zM6 5v1H5z"/%3E%3C/g%3E%3C/svg%3E'); /* Subtle pattern for modal */
         }
 
         @keyframes fadeIn {
@@ -953,7 +949,7 @@
         <section class="hero">
             <div class="hero-content">
                 <h1>Quench Your Thirst!</h1>
-                <p>Your ultimate hub for the coolest **Prime** and **Kato** drinks in Navsari!</p>
+                <p>Your ultimate hub for the coolest Prime and Kato drinks in Navsari!</p>
                 <button class="shop-now-btn" onclick="document.getElementById('category-overview').scrollIntoView({ behavior: 'smooth' });">Explore Drinks</button>
             </div>
         </section>
@@ -970,7 +966,8 @@
 
     <footer>
         <div class="container">
-            <p>2025 Teen's Stop. Sip, Enjoy, Repeat!</p>
+            <p>2025 Teen's Stop. All rights reserved.</p>
+            <p>Sip, Enjoy, Repeat!</p>
         </div>
     </footer>
 
@@ -1031,93 +1028,93 @@
             // --- YOUR PRODUCT DATA ---
             const products = [
                 // Prime Energy Drinks (Assumed MRP)
-                { id: 101, name: 'Prime Energy (Ice Pop)', price: 349, mrp: 399, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Energy Drinks' },
-                { id: 102, name: 'Prime Energy (Blue Raspberry)', price: 349, mrp: 399, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Energy Drinks' },
-                { id: 103, name: 'Prime Energy (Orange Mango)', price: 349, mrp: 399, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Energy Drinks' },
-                { id: 104, name: 'Prime Energy (Tropical Punch)', price: 349, mrp: 399, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Energy Drinks' },
-                { id: 105, name: 'Prime Energy (Lemon Lime)', price: 349, mrp: 399, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Energy Drinks' },
+                { id: 101, name: 'Prime Energy (Ice Pop)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/87CEEB/white?text=Prime+Ice+Pop', category: 'Prime Energy Drinks' },
+                { id: 102, name: 'Prime Energy (Blue Raspberry)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/0000FF/white?text=Prime+Blue+Raspberry', category: 'Prime Energy Drinks' },
+                { id: 103, name: 'Prime Energy (Orange Mango)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/FFA500/white?text=Prime+Orange+Mango', category: 'Prime Energy Drinks' },
+                { id: 104, name: 'Prime Energy (Tropical Punch)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/FF6347/white?text=Prime+Tropical+Punch', category: 'Prime Energy Drinks' },
+                { id: 105, name: 'Prime Energy (Lemon Lime)', price: 349, mrp: 399, image: 'https://placehold.co/400x400/9ACD32/white?text=Prime+Lemon+Lime', category: 'Prime Energy Drinks' },
 
                 // Prime Hydration Drinks (Assumed MRP)
-                { id: 201, name: 'Prime Hydration (Meta Moon)', price: 299, mrp: 349, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Hydration Drinks' },
-                { id: 202, name: 'Prime Hydration (Blue Raspberry)', price: 299, mrp: 349, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Hydration Drinks' },
-                { id: 203, name: 'Prime Hydration (Tropical Punch)', price: 299, mrp: 349, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Hydration Drinks' },
-                { id: 204, name: 'Prime Hydration (Lemon Lime)', price: 299, mrp: 349, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Hydration Drinks' },
-                { id: 205, name: 'Prime Hydration (Grape)', price: 299, mrp: 349, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Hydration Drinks' },
-                { id: 206, name: 'Prime Hydration (Orange)', price: 299, mrp: 349, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Hydration Drinks' },
-                { id: 207, name: 'Prime Hydration (Strawberry Watermelon)', price: 299, mrp: 349, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Prime Hydration Drinks' },
+                { id: 201, name: 'Prime Hydration (Meta Moon)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/9b59b6/white?text=Prime+Meta+Moon', category: 'Prime Hydration Drinks' },
+                { id: 202, name: 'Prime Hydration (Blue Raspberry)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/0000CD/white?text=Prime+Blue+Raspberry', category: 'Prime Hydration Drinks' },
+                { id: 203, name: 'Prime Hydration (Tropical Punch)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/FF4500/white?text=Prime+Tropical+Punch', category: 'Prime Hydration Drinks' },
+                { id: 204, name: 'Prime Hydration (Lemon Lime)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/ADFF2F/white?text=Prime+Lemon+Lime', category: 'Prime Hydration Drinks' },
+                { id: 205, name: 'Prime Hydration (Grape)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/800080/white?text=Prime+Grape', category: 'Prime Hydration Drinks' },
+                { id: 206, name: 'Prime Hydration (Orange)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/FF8C00/white?text=Prime+Orange', category: 'Prime Hydration Drinks' },
+                { id: 207, name: 'Prime Hydration (Strawberry Watermelon)', price: 299, mrp: 349, image: 'https://placehold.co/400x400/FF69B4/white?text=Prime+Strawberry+Watermelon', category: 'Prime Hydration Drinks' },
 
                 // Prime Drinks (Limited Editions)
-                { id: 501, name: 'Prime FC Barcelona', price: 600, mrp: 650, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Limited Edition Prime' },
-                { id: 502, name: 'Prime Berry Freeze', price: 600, mrp: 650, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Limited Edition Prime' },
-                { id: 503, name: 'Prime Glow Berry', price: 600, mrp: 650, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Limited Edition Prime' },
-                { id: 504, name: 'Prime Arsenal', price: 600, mrp: 650, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Limited Edition Prime' },
-                { id: 505, name: 'Prime IShowSpeed', price: 600, mrp: 650, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Limited Edition Prime' },
-                { id: 506, name: 'Prime Strawberry Banana', price: 599, mrp: 649, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Limited Edition Prime' },
+                { id: 501, name: 'Prime FC Barcelona', price: 600, mrp: 650, image: 'https://placehold.co/400x400/A50044/white?text=Prime+FCB', category: 'Limited Edition Prime' },
+                { id: 502, name: 'Prime Berry Freeze', price: 600, mrp: 650, image: 'https://placehold.co/400x400/8A2BE2/white?text=Prime+Berry+Freeze', category: 'Limited Edition Prime' },
+                { id: 503, name: 'Prime Glow Berry', price: 600, mrp: 650, image: 'https://placehold.co/400x400/F0F8FF/black?text=Prime+Glow+Berry', category: 'Limited Edition Prime' },
+                { id: 504, name: 'Prime Arsenal', price: 600, mrp: 650, image: 'https://placehold.co/400x400/EF0107/white?text=Prime+Arsenal', category: 'Limited Edition Prime' },
+                { id: 505, name: 'Prime IShowSpeed', price: 600, mrp: 650, image: 'https://placehold.co/400x400/FFD700/black?text=Prime+IShowSpeed', category: 'Limited Edition Prime' },
+                { id: 506, name: 'Prime Strawberry Banana', price: 599, mrp: 649, image: 'https://placehold.co/400x400/FFC0CB/white?text=Prime+Strawberry+Banana', category: 'Limited Edition Prime' },
 
 
                 // Kato Drinks (Assumed MRP)
-                { id: 301, name: 'Kato Sparkling Water (Grape)', price: 80, mrp: 90, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Kato Drinks' },
-                { id: 302, name: 'Kato Sparkling Water (Peach)', price: 80, mrp: 90, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Kato Drinks' },
-                { id: 303, name: 'Kato Sparkling Water (Blackcurrant)', price: 80, mrp: 90, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Kato Drinks' },
-                { id: 304, name: 'Kato Sparkling Water (Strawberry)', price: 80, mrp: 90, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Kato Drinks' },
-                { id: 305, name: 'Kato Sparkling Water (Lychee)', price: 80, mrp: 90, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Kato Drinks' },
-                { id: 306, name: 'Kato Coconut Water (Original)', price: 120, mrp: 135, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Kato Drinks' },
-                { id: 307, name: 'Kato Coconut Water (Pineapple)', price: 120, mrp: 135, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Kato Drinks' },
+                { id: 301, name: 'Kato Sparkling Water (Grape)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/BEB2D6/black?text=Kato+Grape', category: 'Kato Drinks' },
+                { id: 302, name: 'Kato Sparkling Water (Peach)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/FFDAB9/black?text=Kato+Peach', category: 'Kato Drinks' },
+                { id: 303, name: 'Kato Sparkling Water (Blackcurrant)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/4B0082/white?text=Kato+Blackcurrant', category: 'Kato Drinks' },
+                { id: 304, name: 'Kato Sparkling Water (Strawberry)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/FF69B4/black?text=Kato+Strawberry', category: 'Kato Drinks' },
+                { id: 305, name: 'Kato Sparkling Water (Lychee)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/F0FFF0/black?text=Kato+Lychee', category: 'Kato Drinks' },
+                { id: 306, name: 'Kato Coconut Water (Original)', price: 120, mrp: 135, image: 'https://placehold.co/400x400/F0E68C/black?text=Kato+Coconut', category: 'Kato Drinks' },
+                { id: 307, name: 'Kato Coconut Water (Pineapple)', price: 120, mrp: 135, image: 'https://placehold.co/400x400/FFD700/black?text=Kato+Pineapple', category: 'Kato Drinks' },
                 
                 // Trident Chewing Gum (10% OFF MRP)
-                { id: 601, name: 'Trident Spearmint Gum', price: 179, mrp: 199, image: 'https://images.unsplash.com/photo-1598285521360-15f1f727c62c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Trident Chewing Gum' },
-                { id: 602, name: 'Trident Original Flavor Gum', price: 179, mrp: 199, image: 'https://images.unsplash.com/photo-1598285521360-15f1f727c62c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Trident Chewing Gum' },
-                { id: 603, name: 'Trident Watermelon Twist Gum', price: 179, mrp: 199, image: 'https://images.unsplash.com/photo-1598285521360-15f1f727c62c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Trident Chewing Gum' },
-                { id: 604, name: 'Trident Tropical Twist Gum', price: 179, mrp: 199, image: 'https://images.unsplash.com/photo-1598285521360-15f1f727c62c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Trident Chewing Gum' },
-                { id: 605, name: 'Trident Cinnamon Gum', price: 179, mrp: 199, image: 'https://images.unsplash.com/photo-1598285521360-15f1f727c62c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Trident Chewing Gum' },
-                { id: 606, name: 'Trident Mint Bliss Gum', price: 179, mrp: 199, image: 'https://images.unsplash.com/photo-1598285521360-15f1f727c62c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Trident Chewing Gum' },
+                { id: 601, name: 'Trident Spearmint Gum', price: 179, mrp: 199, image: 'https://placehold.co/400x400/9FE2BF/black?text=Trident+Spearmint', category: 'Trident Chewing Gum' },
+                { id: 602, name: 'Trident Original Flavor Gum', price: 179, mrp: 199, image: 'https://placehold.co/400x400/4169E1/white?text=Trident+Original', category: 'Trident Chewing Gum' },
+                { id: 603, name: 'Trident Watermelon Twist Gum', price: 179, mrp: 199, image: 'https://placehold.co/400x400/FC6C85/white?text=Trident+Watermelon', category: 'Trident Chewing Gum' },
+                { id: 604, name: 'Trident Tropical Twist Gum', price: 179, mrp: 199, image: 'https://placehold.co/400x400/FFD700/black?text=Trident+Tropical', category: 'Trident Chewing Gum' },
+                { id: 605, name: 'Trident Cinnamon Gum', price: 179, mrp: 199, image: 'https://placehold.co/400x400/C41E3A/white?text=Trident+Cinnamon', category: 'Trident Chewing Gum' },
+                { id: 606, name: 'Trident Mint Bliss Gum', price: 179, mrp: 199, image: 'https://placehold.co/400x400/50C878/white?text=Trident+Mint+Bliss', category: 'Trident Chewing Gum' },
 
                 // Other Beverages
-                { id: 1101, name: 'Vanilla Coca-Cola', price: 269, mrp: 290, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 1102, name: 'Coca-Cola Lemon Soft Drink', price: 277, mrp: 300, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 1103, name: 'Bar Ice Cream Soda', price: 277, mrp: 300, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 1104, name: 'Starbucks Creamy Coffee', price: 379, mrp: 400, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 1105, name: 'American Style Basil Seed Watermelon Drink', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 1106, name: 'American Style Basil Seed Kiwi Drink', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 401, name: 'Zero Alcohol Vodka', price: 299, mrp: 350, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 408, name: 'White Monster Energy', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 409, name: 'Golden Red Bull', price: 399, mrp: 450, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 411, name: 'Swami Sparkling Water', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 412, name: 'Starbucks Coffee (Caramel)', price: 379, mrp: 400, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
-                { id: 403, name: "Jimmy's Cocktail (Green Apple)", price: 159, mrp: 180, image: 'https://images.unsplash.com/photo-1543158182-e6d87173e6f3?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Other Beverages' },
+                { id: 1101, name: 'Vanilla Coca-Cola', price: 269, mrp: 290, image: 'https://placehold.co/400x400/F5F5DC/black?text=Vanilla+Coke', category: 'Other Beverages' },
+                { id: 1102, name: 'Coca-Cola Lemon Soft Drink', price: 277, mrp: 300, image: 'https://placehold.co/400x400/FFFF00/black?text=Coke+Lemon', category: 'Other Beverages' },
+                { id: 1103, name: 'Bar Ice Cream Soda', price: 277, mrp: 300, image: 'https://placehold.co/400x400/B0E0E6/black?text=Bar+Ice+Cream+Soda', category: 'Other Beverages' },
+                { id: 1104, name: 'Starbucks Creamy Coffee', price: 379, mrp: 400, image: 'https://placehold.co/400x400/8B4513/white?text=Starbucks+Creamy+Coffee', category: 'Other Beverages' },
+                { id: 1105, name: 'American Style Basil Seed Watermelon Drink', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF6347/white?text=Basil+Seed+Watermelon', category: 'Other Beverages' },
+                { id: 1106, name: 'American Style Basil Seed Kiwi Drink', price: 149, mrp: 160, image: 'https://placehold.co/400x400/8A2BE2/white?text=Basil+Seed+Kiwi', category: 'Other Beverages' },
+                { id: 401, name: 'Zero Alcohol Vodka', price: 299, mrp: 350, image: 'https://placehold.co/400x400/A9A9A9/white?text=Zero+Alcohol+Vodka', category: 'Other Beverages' },
+                { id: 408, name: 'White Monster Energy', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FFFFFF/black?text=White+Monster', category: 'Other Beverages' },
+                { id: 409, name: 'Golden Red Bull', price: 399, mrp: 450, image: 'https://placehold.co/400x400/FFD700/black?text=Golden+Red+Bull', category: 'Other Beverages' },
+                { id: 411, name: 'Swami Sparkling Water', price: 149, mrp: 160, image: 'https://placehold.co/400x400/D3D3D3/black?text=Swami+Sparkling', category: 'Other Beverages' },
+                { id: 412, name: 'Starbucks Coffee (Caramel)', price: 379, mrp: 400, image: 'https://placehold.co/400x400/8B4513/white?text=Starbucks+Caramel', category: 'Other Beverages' },
+                { id: 403, name: "Jimmy's Cocktail (Green Apple)", price: 159, mrp: 180, image: 'https://placehold.co/400x400/98FB98/black?text=Jimmy%27s+Green+Apple', category: 'Other Beverages' },
 
 
                 // Candies & Chewing Gums
-                { id: 402, name: 'Skittles Pack of 20 (MX Player)', price: 799, mrp: 850, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 405, name: 'Skittles (Purple)', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 406, name: 'Skittles (Red)', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 407, name: 'Ice Breakers Chewing Gum', price: 749, mrp: 800, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 415, name: 'Poko Loko Bubble Tape', price: 259, mrp: 280, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 701, name: 'Fusen Berry (Chewing Gum)', price: 199, mrp: 220, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 702, name: 'Banana (Chewing Gum)', price: 199, mrp: 220, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 703, name: 'Mint (Chewing Gum)', price: 199, mrp: 220, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 704, name: 'Impact Mint Candies Cricket Limited Edition (Peppermint)', price: 99, mrp: 110, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 705, name: 'Impactment Strike Chewing Gum (Spearmint Flavor)', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 801, name: 'Poko Loko Troffecho Strawberry Flavor', price: 249, mrp: 270, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 802, name: 'Poko Loko Mix Fruit Flavor Candy', price: 199, mrp: 220, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 803, name: 'Poko Loko Strawberry Sour Tape Candy', price: 99, mrp: 110, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 804, name: 'Poko Loko Truti Fruit (Grape)', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 805, name: 'Poko Loko Truti Fruit (Strawberry)', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 901, name: 'Blueberry Candy Stick', price: 79, mrp: 90, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 902, name: 'Sour Punk Rainbow Candy', price: 79, mrp: 90, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 903, name: 'Sour Punk Cola Flavor', price: 79, mrp: 90, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 904, name: 'Fox Crystal Clear Berry Flavour Candy', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
-                { id: 905, name: 'Mix Fruit Candy (Pack of 20)', price: 149, mrp: 160, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Candies & Chewing Gums' },
+                { id: 402, name: 'Skittles Pack of 20 (MX Player)', price: 799, mrp: 850, image: 'https://placehold.co/400x400/FF0000/white?text=Skittles+20+Pack', category: 'Candies & Chewing Gums' },
+                { id: 405, name: 'Skittles (Purple)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/800080/white?text=Skittles+Purple', category: 'Candies & Chewing Gums' },
+                { id: 406, name: 'Skittles (Red)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF0000/white?text=Skittles+Red', category: 'Candies & Chewing Gums' },
+                { id: 407, name: 'Ice Breakers Chewing Gum', price: 749, mrp: 800, image: 'https://placehold.co/400x400/ADD8E6/black?text=Ice+Breakers', category: 'Candies & Chewing Gums' },
+                { id: 415, name: 'Poko Loko Bubble Tape', price: 259, mrp: 280, image: 'https://placehold.co/400x400/FFC0CB/black?text=Poko+Loko+Bubble+Tape', category: 'Candies & Chewing Gums' },
+                { id: 701, name: 'Fusen Berry (Chewing Gum)', price: 199, mrp: 220, image: 'https://placehold.co/400x400/C71585/white?text=Fusen+Berry', category: 'Candies & Chewing Gums' },
+                { id: 702, name: 'Banana (Chewing Gum)', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FFD700/black?text=Banana+Gum', category: 'Candies & Chewing Gums' },
+                { id: 703, name: 'Mint (Chewing Gum)', price: 199, mrp: 220, image: 'https://placehold.co/400x400/98FB98/black?text=Mint+Gum', category: 'Candies & Chewing Gums' },
+                { id: 704, name: 'Impact Mint Candies Cricket Limited Edition (Peppermint)', price: 99, mrp: 110, image: 'https://placehold.co/400x400/66CDAA/white?text=Impact+Mint', category: 'Candies & Chewing Gums' },
+                { id: 705, name: 'Impactment Strike Chewing Gum (Spearmint Flavor)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/7FFFD4/black?text=Impact+Spearmint', category: 'Candies & Chewing Gums' },
+                { id: 801, name: 'Poko Loko Troffecho Strawberry Flavor', price: 249, mrp: 270, image: 'https://placehold.co/400x400/FFC0CB/black?text=Poko+Loko+Strawberry+Troffecho', category: 'Candies & Chewing Gums' },
+                { id: 802, name: 'Poko Loko Mix Fruit Flavor Candy', price: 199, mrp: 220, image: 'https://placehold.co/400x400/F0F8FF/black?text=Poko+Loko+Mix+Fruit', category: 'Candies & Chewing Gums' },
+                { id: 803, name: 'Poko Loko Strawberry Sour Tape Candy', price: 99, mrp: 110, image: 'https://placehold.co/400x400/FF69B4/black?text=Poko+Loko+Sour+Tape', category: 'Candies & Chewing Gums' },
+                { id: 804, name: 'Poko Loko Truti Fruit (Grape)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/800080/white?text=Poko+Loko+Truti+Grape', category: 'Candies & Chewing Gums' },
+                { id: 805, name: 'Poko Loko Truti Fruit (Strawberry)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FF69B4/black?text=Poko+Loko+Truti+Strawberry', category: 'Candies & Chewing Gums' },
+                { id: 901, name: 'Blueberry Candy Stick', price: 79, mrp: 90, image: 'https://placehold.co/400x400/4682B4/white?text=Blueberry+Stick', category: 'Candies & Chewing Gums' },
+                { id: 902, name: 'Sour Punk Rainbow Candy', price: 79, mrp: 90, image: 'https://placehold.co/400x400/FF1493/white?text=Sour+Punk+Rainbow', category: 'Candies & Chewing Gums' },
+                { id: 903, name: 'Sour Punk Cola Flavor', price: 79, mrp: 90, image: 'https://placehold.co/400x400/D2B48C/black?text=Sour+Punk+Cola', category: 'Candies & Chewing Gums' },
+                { id: 904, name: 'Fox Crystal Clear Berry Flavour Candy', price: 149, mrp: 160, image: 'https://placehold.co/400x400/8A2BE2/white?text=Fox+Berry+Candy', category: 'Candies & Chewing Gums' },
+                { id: 905, name: 'Mix Fruit Candy (Pack of 20)', price: 149, mrp: 160, image: 'https://placehold.co/400x400/FFC0CB/black?text=Mix+Fruit+20+Pack', category: 'Candies & Chewing Gums' },
 
                 // Mints & Chocolates
-                { id: 1001, name: 'Americana Grapefruit Sugar Free Mints', price: 199, mrp: 220, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Mints & Chocolates' },
-                { id: 1002, name: 'Americana Peach Sugar Free Mints', price: 199, mrp: 220, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Mints & Chocolates' },
-                { id: 1003, name: 'Americana Passion Fruit Sugar Free Mints', price: 199, mrp: 220, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Mints & Chocolates' },
-                { id: 1201, name: 'Toblerone Dark Chocolate Flavor', price: 399, mrp: 430, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Mints & Chocolates' },
-                { id: 404, name: 'Maltesers', price: 149, mrp: 165, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Mints & Chocolates' },
-                { id: 410, name: 'Feastables', price: 599, mrp: 650, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Mints & Chocolates' },
-                { id: 413, name: 'Hello Panda (Strawberry)', price: 169, mrp: 180, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Mints & Chocolates' },
-                { id: 414, name: 'Hello Panda (Chocolate)', price: 169, mrp: 180, image: 'https://images.unsplash.com/photo-1626207172551-7f0e6b8c9d1a?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', category: 'Mints & Chocolates' }
+                { id: 1001, name: 'Americana Grapefruit Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FF7F50/white?text=Americana+Grapefruit', category: 'Mints & Chocolates' },
+                { id: 1002, name: 'Americana Peach Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FFDAB9/black?text=Americana+Peach', category: 'Mints & Chocolates' },
+                { id: 1003, name: 'Americana Passion Fruit Sugar Free Mints', price: 199, mrp: 220, image: 'https://placehold.co/400x400/FFD700/black?text=Americana+Passion+Fruit', category: 'Mints & Chocolates' },
+                { id: 1201, name: 'Toblerone Dark Chocolate Flavor', price: 399, mrp: 430, image: 'https://placehold.co/400x400/2F4F4F/white?text=Toblerone+Dark', category: 'Mints & Chocolates' },
+                { id: 404, name: 'Maltesers', price: 149, mrp: 165, image: 'https://placehold.co/400x400/8B4513/white?text=Maltesers', category: 'Mints & Chocolates' },
+                { id: 410, name: 'Feastables', price: 599, mrp: 650, image: 'https://placehold.co/400x400/A0522D/white?text=Feastables', category: 'Mints & Chocolates' },
+                { id: 413, name: 'Hello Panda (Strawberry)', price: 169, mrp: 180, image: 'https://placehold.co/400x400/FFB6C1/black?text=Hello+Panda+Strawberry', category: 'Mints & Chocolates' },
+                { id: 414, name: 'Hello Panda (Chocolate)', price: 169, mrp: 180, image: 'https://placehold.co/400x400/D2B48C/black?text=Hello+Panda+Chocolate', category: 'Mints & Chocolates' }
             ];
 
             const DELIVERY_CHARGE = 30; // Define delivery charge
