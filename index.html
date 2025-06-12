@@ -1060,8 +1060,6 @@
                 { id: 305, name: 'Kato Sparkling Water (Lychee)', price: 80, mrp: 90, image: 'https://placehold.co/400x400/F0FFF0/black?text=Kato+Lychee', category: 'Kato Drinks' },
                 { id: 306, name: 'Kato Coconut Water (Original)', price: 120, mrp: 135, image: 'https://placehold.co/400x400/F0E68C/black?text=Kato+Coconut', category: 'Kato Drinks' },
                 { id: 307, name: 'Kato Coconut Water (Pineapple)', price: 120, mrp: 135, image: 'https://placehold.co/400x400/FFD700/black?text=Kato+Pineapple', category: 'Kato Drinks' },
-                { id: 308, name: 'Kato Juice (Apple)', price: 100, mrp: 110, image: 'https://placehold.co/400x400/90EE90/black?text=Kato+Apple', category: 'Kato Drinks' },
-                { id: 309, name: 'Kato Juice (Mango)', price: 100, mrp: 110, image: 'https://placehold.co/400x400/FFA07A/black?text=Kato+Mango', category: 'Kato Drinks' },
                 
                 // Trident Chewing Gum (10% OFF MRP)
                 { id: 601, name: 'Trident Spearmint Gum', price: 179, mrp: 199, image: 'https://placehold.co/400x400/9FE2BF/black?text=Trident+Spearmint', category: 'Trident Chewing Gum' },
@@ -1294,9 +1292,7 @@
                 let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
                 let total = subtotal;
 
-                if (currentDiscount === 100) { // NSL100 coupon
-                    total = 0;
-                } else if (currentDiscount > 0) { // Darshil15 or SpecialFrnd coupon (15%)
+                if (currentDiscount > 0) { // Darshil15 or SpecialFrnd coupon (15%)
                     total = total * (1 - (currentDiscount / 100));
                 }
 
@@ -1314,10 +1310,7 @@
                 const finalTotal = calculateTotal();
                 cartTotalSpan.textContent = finalTotal.toFixed(2);
 
-                if (appliedCouponCode && finalTotal === 0 && cart.length > 0) { // Check if cart is not empty for 100% off message
-                    discountAppliedMessage.textContent = "(Applied: " + appliedCouponCode + " - 100% OFF)";
-                    discountAppliedMessage.style.display = 'block';
-                } else if (appliedCouponCode && currentDiscount > 0) {
+                if (appliedCouponCode && currentDiscount > 0) {
                      discountAppliedMessage.textContent = "(Applied: " + appliedCouponCode + " - " + currentDiscount + "% OFF)";
                      discountAppliedMessage.style.display = 'block';
                 } else {
@@ -1352,9 +1345,7 @@
 
                 if (appliedCouponCode) {
                     summary += `\nCoupon Applied: ${appliedCouponCode}`;
-                    if (currentDiscount === 100) {
-                        summary += ` (100% OFF)`;
-                    } else if (currentDiscount > 0) {
+                    if (currentDiscount > 0) {
                         summary += ` (${currentDiscount}% OFF)`;
                     }
                 }
@@ -1389,11 +1380,6 @@
                     currentDiscount = 15;
                     appliedCouponCode = couponCode;
                     couponMessage.textContent = `Coupon "${couponCode}" applied! You get 15% off.`;
-                    couponMessage.classList.add('success');
-                } else if (couponCode === 'NSL100') {
-                    currentDiscount = 100;
-                    appliedCouponCode = 'NSL100';
-                    couponMessage.textContent = 'Coupon "NSL100" applied! Your order is 100% FREE!';
                     couponMessage.classList.add('success');
                 } else if (couponCode === '') {
                     couponMessage.textContent = 'Please enter a coupon code.';
