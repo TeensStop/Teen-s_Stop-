@@ -1392,6 +1392,7 @@
                 updateCartUI();
                 localStorage.setItem('teensStopCart', JSON.stringify(cart));
                 checkForScratchCardWin(); // Check for scratch card eligibility on every cart update
+                checkAndRemoveGift(); // NEW: Check if gift should be removed after any cart update
             }
 
             function renderCartItems() {
@@ -1679,6 +1680,26 @@
                 claimGiftBtn.disabled = true; // Disable button after claiming
                 scratchCardModal.style.display = 'none'; // Close modal after claiming
             }
+
+            // NEW FUNCTION: Check if surprise gift should be removed
+            function checkAndRemoveGift() {
+                const giftInCartIndex = cart.findIndex(item => item.id === SURPRISE_GIFT_ID);
+                
+                // If the gift is in the cart, calculate the subtotal excluding the gift
+                if (giftInCartIndex !== -1) {
+                    const subtotalWithoutGift = cart.reduce((sum, item) => {
+                        return item.id === SURPRISE_GIFT_ID ? sum : sum + item.price * item.quantity;
+                    }, 0);
+
+                    if (subtotalWithoutGift < SCRATCH_CARD_THRESHOLD) {
+                        cart.splice(giftInCartIndex, 1); // Remove the gift from the cart
+                        hasWonScratchCard = false; // Reset the flag
+                        updateCart(); // Update UI after removing the gift
+                        alert('Your surprise gift has been removed because your subtotal fell below the required threshold.');
+                    }
+                }
+            }
+
 
             // --- EVENT LISTENERS ---
             productSectionsContainer.addEventListener('click', (e) => {
