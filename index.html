@@ -919,6 +919,92 @@
             #upi-qr-code p {
                 font-size: 0.95rem;
             }
+
+            /* Scratch Card Specific Styles */
+            .scratch-card-modal-content {
+                text-align: center;
+                padding: 30px;
+            }
+
+            .scratch-card-container {
+                position: relative;
+                width: 300px; /* Increased width for better scratching */
+                height: 180px; /* Increased height */
+                margin: 30px auto;
+                border-radius: 15px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+                background: linear-gradient(45deg, #FFD700, #FFA500); /* Golden gradient */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Montserrat', sans-serif;
+                color: var(--primary-navy);
+                font-size: 1.5rem;
+                font-weight: 700;
+                border: 3px solid #FFC107; /* Thicker border */
+            }
+
+            .scratch-card-canvas {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 2; /* On top of the reveal content */
+                cursor: grab;
+            }
+
+            .scratch-card-reveal {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                z-index: 1; /* Below the canvas */
+                background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+                color: var(--dark-green); /* Green text for gift */
+                font-size: 1.8rem;
+                font-weight: 700;
+                padding: 10px;
+                box-sizing: border-box;
+            }
+
+            .scratch-card-reveal .gift-emoji {
+                font-size: 3rem;
+                margin-bottom: 10px;
+            }
+
+            .claim-gift-btn {
+                background-color: var(--accent-orange);
+                color: white;
+                padding: 12px 25px;
+                border: none;
+                border-radius: 30px;
+                font-size: 1.1rem;
+                font-weight: 600;
+                cursor: pointer;
+                margin-top: 25px;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+                box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+            }
+
+            .claim-gift-btn:hover {
+                background-color: #D35400;
+                transform: translateY(-2px);
+            }
+
+            .claim-gift-btn:disabled {
+                background-color: var(--text-light);
+                cursor: not-allowed;
+                box-shadow: none;
+                transform: none;
+            }
         }
     </style>
 </head>
@@ -1023,6 +1109,23 @@
         </div>
     </div>
 
+    <div id="scratch-card-modal" class="modal">
+        <div class="modal-content scratch-card-modal-content">
+            <span class="close-button" id="close-scratch-card-btn">&times;</span>
+            <h2>Congratulations! You Won!</h2>
+            <p style="font-size: 1.1rem; color: var(--text-dark);">Scratch the card to reveal your surprise gift!</p>
+            <div class="scratch-card-container">
+                <canvas id="scratch-canvas" class="scratch-card-canvas"></canvas>
+                <div class="scratch-card-reveal" id="scratch-card-reveal">
+                    <span class="gift-emoji">🎁</span>
+                    <p>A Surprise Gift!</p>
+                </div>
+            </div>
+            <button class="claim-gift-btn" id="claim-gift-btn" disabled>Claim Your Gift</button>
+        </div>
+    </div>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- YOUR PRODUCT DATA ---
@@ -1082,6 +1185,7 @@
                 { id: 411, name: 'Swami Sparkling Water', price: 149, mrp: 160, image: 'https://placehold.co/400x400/D3D3D3/black?text=Swami+Sparkling', category: 'Other Beverages' },
                 { id: 412, name: 'Starbucks Coffee (Caramel)', price: 379, mrp: 400, image: 'https://placehold.co/400x400/8B4513/white?text=Starbucks+Caramel', category: 'Other Beverages' },
                 { id: 403, name: "Jimmy's Cocktail (Green Apple)", price: 159, mrp: 180, image: 'https://placehold.co/400x400/98FB98/black?text=Jimmy%27s+Green+Apple', category: 'Other Beverages' },
+                { id: 10001, name: 'Mystery Box', price: 649, mrp: 699, image: 'https://placehold.co/400x400/8B008B/white?text=Mystery+Box', category: 'Other Beverages' },
 
 
                 // Candies & Chewing Gums
@@ -1118,6 +1222,9 @@
             ];
 
             const DELIVERY_CHARGE = 30; // Define delivery charge
+            const SCRATCH_CARD_THRESHOLD = 499; // Price threshold for scratch card
+            const SURPRISE_GIFT_ID = 99999; // Unique ID for the surprise gift
+
 
             // --- DOM ELEMENTS ---
             const productSectionsContainer = document.getElementById('product-sections');
@@ -1138,6 +1245,17 @@
             const deliveryChargeDisplay = document.getElementById('delivery-charge');
             const searchInput = document.getElementById('search-input');
 
+            // Scratch Card DOM elements
+            const scratchCardModal = document.getElementById('scratch-card-modal');
+            const closeScratchCardBtn = document.getElementById('close-scratch-card-btn');
+            const scratchCanvas = document.getElementById('scratch-canvas');
+            const claimGiftBtn = document.getElementById('claim-gift-btn');
+
+            let ctx = scratchCanvas.getContext('2d');
+            let isScratching = false;
+            let revealedPixels = 0;
+            let scratchThreshold = 0.5; // 50% revealed to enable claim button
+            let hasWonScratchCard = false; // Flag to ensure scratch card is shown only once per eligible purchase
 
             // Load cart from browser's local storage
             let cart = JSON.parse(localStorage.getItem('teensStopCart')) || [];
@@ -1224,12 +1342,17 @@
                         }
                         priceHtml += `</p>`;
 
+                        // Disable add to cart for surprise gift product
+                        const addToCartButton = product.id === SURPRISE_GIFT_ID
+                            ? `<button class="add-to-cart-btn" data-id="${product.id}" disabled style="background-color: var(--text-light); cursor: not-allowed;">Gift (Not for Sale)</button>`
+                            : `<button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>`;
+
                         productCard.innerHTML = `
                             <img src="${product.image}" alt="${product.name}" class="product-image">
                             <div class="product-info">
                                 <h3 class="product-name">${product.name}</h3>
                                 ${priceHtml}
-                                <button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>
+                                ${addToCartButton}
                             </div>
                         `;
                         productGrid.appendChild(productCard);
@@ -1252,9 +1375,13 @@
             function updateQuantity(productId, change) {
                 const cartItem = cart.find(item => item.id === productId);
                 if (cartItem) {
+                    // Prevent decreasing quantity below 1 for the surprise gift if it's in the cart
+                    if (cartItem.id === SURPRISE_GIFT_ID && (cartItem.quantity + change) < 1) {
+                        return; // Do not allow removal of the gift
+                    }
                     cartItem.quantity += change;
-                    if (cartItem.quantity <= 0) {
-                        cart = cart.filter(item => item.id !== productId); // Remove if quantity is 0 or less
+                    if (cartItem.quantity <= 0 && cartItem.id !== SURPRISE_GIFT_ID) {
+                        cart = cart.filter(item => item.id !== productId); // Remove if quantity is 0 or less, unless it's the gift
                     }
                     updateCart();
                 }
@@ -1264,6 +1391,7 @@
                 renderCartItems();
                 updateCartUI();
                 localStorage.setItem('teensStopCart', JSON.stringify(cart));
+                checkForScratchCardWin(); // Check for scratch card eligibility on every cart update
             }
 
             function renderCartItems() {
@@ -1274,14 +1402,23 @@
                     cart.forEach(item => {
                         const li = document.createElement('li');
                         li.setAttribute('data-id', item.id);
-                        li.innerHTML = `
-                            <span>${item.name}</span>
-                            <div style="display: flex; align-items: center; gap: 10px;">
+
+                        const quantityControls = item.id === SURPRISE_GIFT_ID
+                            ? `<span>${item.quantity} (Gift)</span>` // Display as gift, no quantity controls
+                            : `<div style="display: flex; align-items: center; gap: 10px;">
                                 <button class="quantity-btn decrease-quantity-btn" data-id="${item.id}">-</button>
                                 <span>${item.quantity}</span>
                                 <button class="quantity-btn increase-quantity-btn" data-id="${item.id}">+</button>
-                            </div>
-                            <span>₹${(item.price * item.quantity).toFixed(2)}</span>
+                            </div>`;
+
+                        const priceDisplay = item.id === SURPRISE_GIFT_ID
+                            ? `<span style="color: var(--success-green);">FREE</span>`
+                            : `<span>₹${(item.price * item.quantity).toFixed(2)}</span>`;
+
+                        li.innerHTML = `
+                            <span>${item.name}</span>
+                            ${quantityControls}
+                            ${priceDisplay}
                         `;
                         cartItemsList.appendChild(li);
                     });
@@ -1289,7 +1426,11 @@
             }
 
             function calculateTotal() {
-                let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                let subtotal = cart.reduce((sum, item) => {
+                    // Exclude surprise gift from subtotal calculation as it's free
+                    return item.id === SURPRISE_GIFT_ID ? sum : sum + item.price * item.quantity;
+                }, 0);
+
                 let total = subtotal;
 
                 if (currentDiscount > 0) { // Darshil15 or SpecialFrnd coupon (15%)
@@ -1297,7 +1438,9 @@
                 }
 
                 // Add delivery charge if total is not zero (after discounts)
-                if (total > 0 && subtotal > 0) { // Only add delivery charge if there are items and total is not zero
+                // Delivery charge should be based on the actual product total, not including the gift.
+                // If subtotal is greater than 0, delivery applies.
+                if (subtotal > 0) {
                     total += DELIVERY_CHARGE;
                 }
                 return total;
@@ -1318,13 +1461,14 @@
                 }
 
                 // Display delivery charge clearly, hide if cart is empty
-                if (cart.length === 0) {
+                const subtotalForDeliveryCheck = cart.reduce((sum, item) => item.id === SURPRISE_GIFT_ID ? sum : sum + item.price * item.quantity, 0);
+
+                if (subtotalForDeliveryCheck === 0) {
                     deliveryChargeDisplay.style.display = 'none';
                 } else {
                     deliveryChargeDisplay.style.display = 'block';
                     deliveryChargeDisplay.textContent = `Delivery Charge: ₹${DELIVERY_CHARGE.toFixed(2)}`;
                 }
-
 
                 updateOrderSummaryForForm();
             }
@@ -1335,12 +1479,13 @@
                     summary += "No items in cart.\n";
                 } else {
                     cart.forEach(item => {
-                        summary += `- ${item.name} (Qty: ${item.quantity}) - ₹${(item.price * item.quantity).toFixed(2)}\n`;
+                        const price = item.id === SURPRISE_GIFT_ID ? 'FREE' : `₹${(item.price * item.quantity).toFixed(2)}`;
+                        summary += `- ${item.name} (Qty: ${item.quantity}) - ${price}\n`;
                     });
                 }
 
 
-                const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+                const subtotal = cart.reduce((sum, item) => item.id === SURPRISE_GIFT_ID ? sum : sum + item.price * item.quantity, 0);
                 summary += `\nSubtotal: ₹${subtotal.toFixed(2)}`;
 
                 if (appliedCouponCode) {
@@ -1351,7 +1496,7 @@
                 }
 
                 // Add delivery charge to summary only if applicable
-                if (subtotal > 0 && calculateTotal() > 0) { // Check subtotal > 0 to ensure items exist
+                if (subtotal > 0) { // Check subtotal > 0 to ensure items exist
                      summary += `\nDelivery Charge: ₹${DELIVERY_CHARGE.toFixed(2)}`;
                 }
 
@@ -1400,9 +1545,144 @@
                 }
             }
 
+            // --- Scratch Card Functions ---
+            function checkForScratchCardWin() {
+                const currentSubtotal = cart.reduce((sum, item) => item.id === SURPRISE_GIFT_ID ? sum : sum + item.price * item.quantity, 0);
+                // Check if the surprise gift is already in the cart to prevent multiple wins
+                const hasGiftAlready = cart.some(item => item.id === SURPRISE_GIFT_ID);
+
+                if (currentSubtotal >= SCRATCH_CARD_THRESHOLD && !hasWonScratchCard && !hasGiftAlready) {
+                    hasWonScratchCard = true; // Set flag to prevent showing multiple times
+                    showScratchCardModal();
+                } else if (currentSubtotal < SCRATCH_CARD_THRESHOLD && hasWonScratchCard && !hasGiftAlready) {
+                    // Reset the flag if total drops below threshold and gift hasn't been claimed
+                    hasWonScratchCard = false;
+                }
+            }
+
+            function showScratchCardModal() {
+                scratchCardModal.style.display = 'block';
+                initializeScratchCard();
+            }
+
+            function initializeScratchCard() {
+                // Ensure canvas size matches container for proper scaling
+                const container = document.querySelector('.scratch-card-container');
+                scratchCanvas.width = container.clientWidth;
+                scratchCanvas.height = container.clientHeight;
+
+                // Fill the canvas with a scratchable layer (e.g., grey color)
+                ctx.fillStyle = '#A9A9A9'; // Grey color for scratch-off
+                ctx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
+
+                // Set drawing properties for scratching
+                ctx.globalCompositeOperation = 'destination-out'; // This makes drawn pixels transparent
+                ctx.lineWidth = 30; // Brush size
+                ctx.lineJoin = 'round';
+                ctx.lineCap = 'round';
+
+                // Reset revealed pixels and claim button
+                revealedPixels = 0;
+                claimGiftBtn.disabled = true;
+
+                // Event listeners for scratching
+                scratchCanvas.addEventListener('mousedown', startScratching);
+                scratchCanvas.addEventListener('mousemove', scratch);
+                scratchCanvas.addEventListener('mouseup', stopScratching);
+                scratchCanvas.addEventListener('mouseleave', stopScratching); // Also stop if mouse leaves
+                
+                // Touch events for mobile
+                scratchCanvas.addEventListener('touchstart', startScratching);
+                scratchCanvas.addEventListener('touchmove', scratch);
+                scratchCanvas.addEventListener('touchend', stopScratching);
+            }
+
+            function getEventPos(event) {
+                const rect = scratchCanvas.getBoundingClientRect();
+                if (event.touches && event.touches.length > 0) {
+                    return {
+                        x: event.touches[0].clientX - rect.left,
+                        y: event.touches[0].clientY - rect.top
+                    };
+                }
+                return {
+                    x: event.clientX - rect.left,
+                    y: event.clientY - rect.top
+                };
+            }
+
+            function startScratching(e) {
+                isScratching = true;
+                ctx.beginPath();
+                const pos = getEventPos(e);
+                ctx.moveTo(pos.x, pos.y);
+                e.preventDefault(); // Prevent scrolling on touch devices
+            }
+
+            function scratch(e) {
+                if (!isScratching) return;
+                const pos = getEventPos(e);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+                checkRevealedArea();
+                e.preventDefault(); // Prevent scrolling on touch devices
+            }
+
+            function stopScratching() {
+                isScratching = false;
+            }
+
+            function checkRevealedArea() {
+                const imageData = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
+                const pixels = imageData.data;
+                let transparentPixels = 0;
+
+                for (let i = 0; i < pixels.length; i += 4) {
+                    if (pixels[i + 3] === 0) { // Check alpha channel (0 means transparent)
+                        transparentPixels++;
+                    }
+                }
+
+                revealedPixels = transparentPixels / (pixels.length / 4);
+
+                if (revealedPixels >= scratchThreshold) {
+                    claimGiftBtn.disabled = false;
+                    // Optional: remove event listeners once sufficiently scratched
+                    scratchCanvas.removeEventListener('mousedown', startScratching);
+                    scratchCanvas.removeEventListener('mousemove', scratch);
+                    scratchCanvas.removeEventListener('mouseup', stopScratching);
+                    scratchCanvas.removeEventListener('mouseleave', stopScratching);
+                    scratchCanvas.removeEventListener('touchstart', startScratching);
+                    scratchCanvas.removeEventListener('touchmove', scratch);
+                    scratchCanvas.removeEventListener('touchend', stopScratching);
+                }
+            }
+
+            function claimSurpriseGift() {
+                const existingGift = cart.find(item => item.id === SURPRISE_GIFT_ID);
+                if (!existingGift) {
+                    // Add a placeholder product for the surprise gift
+                    const giftProduct = {
+                        id: SURPRISE_GIFT_ID,
+                        name: '🥳 Surprise Gift!',
+                        price: 0, // It's free
+                        mrp: 0,
+                        image: 'https://placehold.co/400x400/27AE60/white?text=SURPRISE+GIFT',
+                        category: 'Special Offers' // Or a new category
+                    };
+                    cart.push({ ...giftProduct, quantity: 1 });
+                    updateCart();
+                    alert('🥳 Your surprise gift has been added to your cart!');
+                } else {
+                    alert('You have already claimed your surprise gift!');
+                }
+                claimGiftBtn.disabled = true; // Disable button after claiming
+                scratchCardModal.style.display = 'none'; // Close modal after claiming
+            }
+
             // --- EVENT LISTENERS ---
             productSectionsContainer.addEventListener('click', (e) => {
-                if (e.target.classList.contains('add-to-cart-btn')) {
+                if (e.target.classList.contains('add-to-cart-btn') && !e.target.disabled) {
                     const productId = parseInt(e.target.getAttribute('data-id'));
                     addToCart(productId);
                     // Give user feedback
@@ -1429,6 +1709,9 @@
             window.addEventListener('click', (e) => {
                 if (e.target == cartModal) {
                     cartModal.style.display = 'none';
+                }
+                if (e.target == scratchCardModal) {
+                    scratchCardModal.style.display = 'none';
                 }
             });
 
@@ -1458,10 +1741,17 @@
                 renderProducts(e.target.value);
             });
 
+            closeScratchCardBtn.addEventListener('click', () => {
+                scratchCardModal.style.display = 'none';
+            });
+
+            claimGiftBtn.addEventListener('click', claimSurpriseGift);
+
+
             // --- INITIALIZATION ---
             renderCategoryCards(); // Render category cards first
             renderProducts();      // Then render all products by category
-            updateCart();          // Initial cart update
+            updateCart();          // Initial cart update (also checks for scratch card win)
             togglePaymentDetails(); // Set initial visibility for UPI QR code
         });
     </script>
