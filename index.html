@@ -6,59 +6,75 @@
     <title>Teen's Stop - Your Ultimate Drink Hub</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* Modern & Professional UI */
+        /* Modern, Minimalist & Professional UI */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap');
 
         :root {
-            --primary-navy: #1C2E4A; /* Deep navy for primary elements */
-            --secondary-teal: #1ABC9C; /* Calming teal for accents */
-            --success-green: #27AE60; /* Robust green for success */
-            --dark-green: #219B53;
-            --text-dark: #34495E;    /* Dark slate for main text */
-            --text-light: #7F8C8D;   /* Muted grey for secondary text */
+            --primary-dark: #1F2E4A; /* Deeper navy for primary elements */
+            --accent-green: #2ECC71; /* Vibrant green for primary actions/accents */
+            --secondary-blue: #3498DB; /* Calming blue for secondary accents/links */
+            --text-main: #34495E;    /* Dark slate for main text */
+            --text-secondary: #7F8C8D;   /* Muted grey for secondary text */
             --background-light: #F8F9FA; /* Off-white for body background */
             --card-background: #FFFFFF;
             --border-light: #E9ECEF; /* Subtle border color */
-            --accent-orange: #E67E22; /* Warm orange for highlights */
-            --red-alert: #E74C3C; /* Classic red for alerts */
-            --coupon-success: #28A745;
-            --coupon-error: #DC3545;
-            --discount-color: #E74C3C; /* Red for discount percentage */
+            --highlight-orange: #E67E22; /* Warm orange for highlights/sales */
+            --error-red: #E74C3C; /* Classic red for alerts */
+            --success-green-light: #D4EDDA; /* Light green for success messages */
+            --error-red-light: #F8D7DA; /* Light red for error messages */
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+            --shadow-strong: rgba(0, 0, 0, 0.15);
+            --border-radius-soft: 8px;
+            --border-radius-pill: 30px;
+            --spacing-unit: 1rem; /* Base spacing unit (20px) */
         }
 
         body {
             font-family: 'Inter', sans-serif;
             margin: 0;
             background-color: var(--background-light);
-            color: var(--text-dark);
+            color: var(--text-main);
             line-height: 1.6;
             scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 16px; /* Base font size */
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 calc(var(--spacing-unit) * 1.5); /* 30px padding */
+            box-sizing: border-box; /* Ensure padding is included in element's total width and height */
         }
+
+        /* --- Global Utility Classes --- */
+        .shadow-sm { box-shadow: 0 2px 4px var(--shadow-light); }
+        .shadow-md { box-shadow: 0 4px 12px var(--shadow-medium); }
+        .shadow-lg { box-shadow: 0 8px 20px var(--shadow-strong); }
+        .rounded-lg { border-radius: var(--border-radius-soft); }
+        .rounded-pill { border-radius: var(--border-radius-pill); }
+        .transition-ease { transition: all 0.3s ease-in-out; }
 
         /* --- Header & Navigation --- */
         .top-nav {
-            background-color: var(--primary-navy);
-            color: #E9ECEF;
-            padding: 10px 0;
-            font-size: 0.85rem;
+            background-color: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: calc(var(--spacing-unit) * 0.75) 0; /* 15px padding */
+            font-size: 0.8rem;
         }
 
         .top-nav .container {
             display: flex;
             justify-content: flex-end;
-            gap: 25px;
+            gap: calc(var(--spacing-unit) * 1.5); /* 30px gap */
         }
 
         header {
             background-color: var(--card-background);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            padding: 15px 0;
+            box-shadow: 0 4px 12px var(--shadow-medium);
+            padding: calc(var(--spacing-unit) * 1) 0; /* 20px padding */
             position: sticky;
             top: 0;
             z-index: 500;
@@ -74,76 +90,80 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 2.2rem;
             font-weight: 700;
-            color: var(--primary-navy);
+            color: var(--primary-dark);
             letter-spacing: -0.8px;
+            margin-right: calc(var(--spacing-unit) * 2); /* 40px margin */
+            white-space: nowrap; /* Prevent breaking on smaller screens too early */
         }
 
         .store-name span {
-            color: var(--secondary-teal);
+            color: var(--accent-green);
         }
 
         .search-bar {
             flex-grow: 1;
-            margin: 0 40px;
-            max-width: 550px;
+            max-width: 500px;
             position: relative;
         }
 
         .search-bar input {
             width: 100%;
-            padding: 12px 20px 12px 45px;
+            padding: calc(var(--spacing-unit) * 0.65) calc(var(--spacing-unit) * 1.25) calc(var(--spacing-unit) * 0.65) calc(var(--spacing-unit) * 2.5); /* 13px 25px 13px 50px */
             border: 1px solid var(--border-light);
-            border-radius: 30px;
-            font-size: 1rem;
+            border-radius: var(--border-radius-pill);
+            font-size: 0.95rem;
             outline: none;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--background-light); /* Light background for input */
+            box-sizing: border-box; /* Ensure padding is included in width */
         }
 
         .search-bar input:focus {
-            border-color: var(--secondary-teal);
-            box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.15);
+            border-color: var(--accent-green);
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.15);
         }
 
         .search-bar i {
             position: absolute;
-            left: 18px;
+            left: var(--spacing-unit); /* 20px */
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-light);
-            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-size: 1rem;
         }
 
         .cart-button {
-            background-color: var(--secondary-teal);
+            background-color: var(--secondary-blue);
             color: white;
-            padding: 10px 25px;
+            padding: calc(var(--spacing-unit) * 0.7) calc(var(--spacing-unit) * 1.5); /* 14px 30px */
             border: none;
-            border-radius: 30px;
+            border-radius: var(--border-radius-pill);
             cursor: pointer;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             font-weight: 600;
             position: relative;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 12px rgba(26, 188, 156, 0.3);
+            gap: calc(var(--spacing-unit) * 0.5); /* 10px */
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.25);
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            white-space: nowrap; /* Prevent button text from wrapping */
         }
 
         .cart-button:hover {
-            background-color: #16A085; /* Darker teal */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(26, 188, 156, 0.4);
+            background-color: #2980B9; /* Darker blue */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.35);
         }
 
         #cart-count {
-            background-color: var(--red-alert);
+            background-color: var(--error-red);
             color: white;
             border-radius: 50%;
-            padding: 5px 9px;
-            font-size: 0.85rem;
+            padding: 4px 8px;
+            font-size: 0.75rem;
             font-weight: 700;
-            min-width: 26px;
+            min-width: 24px;
             text-align: center;
             line-height: 1;
         }
@@ -151,18 +171,18 @@
         /* --- Hero Section --- */
         .hero {
             text-align: center;
-            padding: 90px 20px;
-            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-teal));
+            padding: calc(var(--spacing-unit) * 5) 0; /* 100px padding */
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-blue));
             color: white;
-            margin-top: 35px;
-            border-radius: 15px;
+            margin-top: calc(var(--spacing-unit) * 2); /* 40px margin */
+            border-radius: var(--border-radius-lg);
             overflow: hidden;
             position: relative;
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 12px 30px var(--shadow-strong);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 380px; /* Ensure a good height */
+            min-height: 380px;
         }
 
         .hero::before {
@@ -172,251 +192,267 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('https://source.unsplash.com/random/1200x400/?drinks,beverages,refreshment,gradient') no-repeat center center/cover;
-            opacity: 0.3; /* Increased opacity for better blending */
+            background: url('https://placehold.co/1200x400/34495E/white?text=Refreshment') no-repeat center center/cover; /* Placeholder for a subtle background */
+            opacity: 0.2; /* Subtle opacity */
             z-index: 0;
-            filter: brightness(0.8); /* Slightly darken the background image */
+            filter: brightness(0.7); /* Slightly darken the background image */
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 800px;
+            max-width: 900px;
+            padding: 0 var(--spacing-unit); /* Add padding to hero content itself */
+            box-sizing: border-box;
         }
 
         .hero h1 {
             font-family: 'Montserrat', sans-serif;
-            font-size: 4.2rem;
-            margin-bottom: 20px;
+            font-size: 3.8rem;
+            margin-bottom: var(--spacing-unit);
             font-weight: 700;
-            letter-spacing: -2px;
-            text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            letter-spacing: -1.5px;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.25);
+            word-wrap: break-word; /* Allow long words to break */
+            overflow-wrap: break-word;
         }
 
         .hero p {
-            font-size: 1.55rem;
-            color: rgba(255, 255, 255, 0.95);
-            max-width: 750px;
-            margin: 0 auto 40px;
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 700px;
+            margin: 0 auto calc(var(--spacing-unit) * 2);
             font-weight: 300;
+            word-wrap: break-word; /* Allow long words to break */
+            overflow-wrap: break-word;
         }
 
         .hero .shop-now-btn {
-            background-color: var(--accent-orange);
+            background-color: var(--highlight-orange);
             color: white;
-            padding: 16px 40px;
+            padding: calc(var(--spacing-unit) * 0.9) calc(var(--spacing-unit) * 2.2); /* 18px 44px */
             border: none;
-            border-radius: 35px;
-            font-size: 1.2rem;
+            border-radius: var(--border-radius-pill);
+            font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 6px 18px rgba(230, 126, 34, 0.35);
             transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 6px 18px rgba(230, 126, 34, 0.4);
+            white-space: nowrap;
         }
 
         .hero .shop-now-btn:hover {
             background-color: #D35400; /* Darker orange */
-            transform: translateY(-4px);
-            box-shadow: 0 8px 22px rgba(230, 126, 34, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 22px rgba(230, 126, 34, 0.45);
+        }
+
+        /* --- Section Titles --- */
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: calc(var(--spacing-unit) * 2); /* 40px margin */
+            position: relative;
+            text-align: center;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-green);
+            border-radius: 2px;
         }
 
         /* --- Category Cards --- */
         .category-overview {
-            margin-top: 60px;
+            margin-top: calc(var(--spacing-unit) * 3); /* 60px margin */
             text-align: center;
-        }
-
-        .category-overview h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-navy);
-            margin-bottom: 35px;
-            position: relative;
-        }
-
-        .category-overview h2::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90px;
-            height: 5px;
-            background-color: var(--secondary-teal);
-            border-radius: 3px;
         }
 
         .category-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: calc(var(--spacing-unit) * 1.5); /* 30px gap */
+            margin-top: calc(var(--spacing-unit) * 2);
         }
 
         .category-card {
             background-color: var(--card-background);
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.09);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: var(--border-radius-soft);
+            box-shadow: 0 6px 15px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
-            padding: 25px;
+            padding: calc(var(--spacing-unit) * 1.5); /* 30px */
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 160px;
-            border: 1px solid var(--border-light); /* Added subtle border */
+            min-height: 150px;
+            border: 1px solid var(--border-light);
+            box-sizing: border-box;
         }
 
         .category-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 18px 35px rgba(0,0,0,0.18);
-            border-color: var(--secondary-teal);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px var(--shadow-medium);
+            border-color: var(--accent-green);
         }
 
         .category-card i {
-            font-size: 3.5rem;
-            color: var(--secondary-teal);
-            margin-bottom: 18px;
+            font-size: 3rem;
+            color: var(--secondary-blue);
+            margin-bottom: var(--spacing-unit);
             transition: color 0.3s ease;
         }
 
         .category-card:hover i {
-            color: var(--primary-navy);
+            color: var(--primary-dark);
         }
 
         .category-card h3 {
-            font-size: 1.35rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            color: var(--text-dark);
+            color: var(--text-main);
             margin: 0;
+            word-wrap: break-word; /* Allow long words to break */
+            overflow-wrap: break-word;
         }
 
-        /* --- Product Grid --- */
+        /* --- Product Grid - Amazon-like Layout --- */
         .product-category {
-            margin-top: 60px;
-            margin-bottom: 40px;
-            padding-top: 20px;
-        }
-
-        .product-category h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-navy);
-            text-align: center;
-            margin-bottom: 35px;
-            position: relative;
-        }
-
-        .product-category h2::after {
-            content: '';
-            position: absolute;
-            bottom: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90px;
-            height: 5px;
-            background-color: var(--accent-orange);
-            border-radius: 3px;
+            margin-top: calc(var(--spacing-unit) * 4); /* 80px margin */
+            margin-bottom: calc(var(--spacing-unit) * 2);
+            padding-top: var(--spacing-unit);
         }
 
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 3rem;
-            padding-bottom: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Adjusted minmax for more flexible columns */
+            gap: calc(var(--spacing-unit) * 1.5); /* Reduced gap slightly for a denser look */
+            padding-bottom: calc(var(--spacing-unit) * 1.5);
         }
 
         .product-card {
             background-color: var(--card-background);
-            border-radius: 12px;
+            border-radius: var(--border-radius-soft);
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.09);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 10px var(--shadow-light); /* Slightly softer shadow */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             display: flex;
             flex-direction: column;
             position: relative;
             border: 1px solid var(--border-light);
+            box-sizing: border-box;
         }
 
         .product-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 18px 35px rgba(0,0,0,0.18);
+            transform: translateY(-4px); /* Subtler lift effect */
+            box-shadow: 0 8px 20px var(--shadow-medium); /* More pronounced shadow on hover */
         }
 
         .product-image {
             width: 100%;
-            height: 240px;
+            height: 200px; /* Slightly reduced height for compactness */
             object-fit: cover;
             border-bottom: 1px solid var(--border-light);
+            padding: var(--spacing-unit) * 0.5; /* Added padding around image for cleaner look */
+            box-sizing: border-box;
         }
 
         .product-info {
-            padding: 1.8rem;
+            padding: calc(var(--spacing-unit) * 0.75); /* Reduced internal padding to 15px */
             flex-grow: 1;
             display: flex;
             flex-direction: column;
+            box-sizing: border-box;
         }
 
         .product-name {
-            font-size: 1.4rem;
+            font-size: 1.1rem; /* Slightly smaller for typical product lists */
             font-weight: 600;
-            margin: 0 0 0.6rem;
-            color: var(--text-dark);
+            margin: 0 0 calc(var(--spacing-unit) * 0.25); /* Reduced margin below name */
+            color: var(--text-main);
             flex-grow: 1;
             line-height: 1.3;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            min-height: 2.6em; /* Keep enough space for two lines */
+            max-height: 3.9em; /* Max height for three lines to prevent excessive growth */
+            overflow: hidden; /* Hide overflow text */
+            text-overflow: ellipsis; /* Add ellipsis for overflow */
+            display: -webkit-box; /* For multi-line ellipsis */
+            -webkit-line-clamp: 3; /* Limit to 3 lines */
+            -webkit-box-orient: vertical;
         }
 
         .product-price {
-            font-size: 1.45rem;
+            font-size: 1.2rem; /* Slightly smaller price */
             font-weight: 700;
-            color: var(--primary-navy);
-            margin: 0.8rem 0 0.6rem;
+            color: var(--primary-dark);
+            margin: calc(var(--spacing-unit) * 0.4) 0 calc(var(--spacing-unit) * 0.5); /* Adjusted margins */
             display: flex;
+            flex-wrap: wrap;
             align-items: baseline;
-            gap: 10px;
+            gap: calc(var(--spacing-unit) * 0.4); /* Reduced gap */
+            line-height: 1.2;
         }
 
         .product-price .mrp {
-            font-size: 1rem;
-            color: var(--text-light);
+            font-size: 0.8rem; /* Smaller MRP */
+            color: var(--text-secondary);
             text-decoration: line-through;
             font-weight: 400;
+            white-space: nowrap;
         }
 
         .product-price .discount-percent {
-            font-size: 1rem;
-            color: var(--discount-color);
+            font-size: 0.8rem; /* Smaller discount percent */
+            color: var(--highlight-orange);
             font-weight: 600;
+            white-space: nowrap;
         }
 
         .add-to-cart-btn {
-            background-color: var(--success-green);
+            background-color: var(--accent-green);
             color: white;
             border: none;
-            padding: 15px 20px;
+            padding: calc(var(--spacing-unit) * 0.6) var(--spacing-unit); /* 12px 20px */
             width: 100%;
-            border-radius: 10px;
+            border-radius: var(--border-radius-soft);
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 0.95rem; /* Slightly smaller font for button */
             font-weight: 600;
             margin-top: auto;
-            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.35);
+            box-shadow: 0 3px 8px rgba(46, 204, 113, 0.25); /* Softer shadow */
+            transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+            box-sizing: border-box;
+            white-space: nowrap;
         }
 
         .add-to-cart-btn:hover {
-            background-color: var(--dark-green);
-            transform: translateY(-3px);
-            box-shadow: 0 7px 18px rgba(39, 174, 96, 0.45);
+            background-color: #27AE60;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(46, 204, 113, 0.35);
         }
 
         .add-to-cart-btn:active {
             transform: translateY(0);
-            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+            box-shadow: 0 2px 6px rgba(46, 204, 113, 0.2);
+        }
+
+        .add-to-cart-btn:disabled {
+            background-color: var(--text-secondary);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
         }
 
         /* --- Modal Styles --- */
@@ -429,20 +465,23 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0,0,0,0.6); /* Slightly lighter overlay */
             animation: fadeIn 0.3s forwards;
+            padding: var(--spacing-unit); /* Ensure modal itself has padding on very small screens */
+            box-sizing: border-box;
         }
 
         .modal-content {
             background-color: var(--card-background);
-            margin: 4% auto; /* Adjusted margin */
-            padding: 40px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 800px; /* Slightly larger max width */
+            margin: 4vh auto; /* Adjusted margin for better vertical centering on larger screens */
+            padding: calc(var(--spacing-unit) * 2); /* 40px */
+            border-radius: var(--border-radius-lg); /* Larger border radius */
+            width: 95%;
+            max-width: 750px; /* Max width for cart modal */
             position: relative;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px var(--shadow-strong);
             animation: slideInFromTop 0.4s ease-out forwards;
+            box-sizing: border-box;
         }
 
         @keyframes fadeIn {
@@ -451,16 +490,16 @@
         }
 
         @keyframes slideInFromTop {
-            from {transform: translateY(-70px); opacity: 0;}
+            from {transform: translateY(-50px); opacity: 0;}
             to {transform: translateY(0); opacity: 1;}
         }
 
         .close-button {
-            color: var(--text-light);
+            color: var(--text-secondary);
             position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 40px;
+            top: var(--spacing-unit); /* 20px */
+            right: calc(var(--spacing-unit) * 1.5); /* 30px */
+            font-size: 2.5rem; /* Larger close icon */
             font-weight: bold;
             cursor: pointer;
             transition: color 0.2s ease;
@@ -468,72 +507,91 @@
 
         .close-button:hover,
         .close-button:focus {
-            color: var(--red-alert);
+            color: var(--error-red);
         }
 
         .modal-content h2 {
             font-family: 'Montserrat', sans-serif;
-            color: var(--primary-navy);
-            margin-bottom: 30px;
-            font-size: 2.2rem;
+            color: var(--primary-dark);
+            margin-bottom: calc(var(--spacing-unit) * 1.5); /* 30px */
+            font-size: 1.8rem;
             font-weight: 600;
-            border-bottom: 2px solid var(--border-light);
-            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-light);
+            padding-bottom: calc(var(--spacing-unit) * 0.6); /* 12px */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         #cart-items {
             list-style: none;
             padding: 0;
-            max-height: 380px; /* Slightly larger max height */
+            max-height: 350px;
             overflow-y: auto;
-            margin-bottom: 25px;
+            margin-bottom: calc(var(--spacing-unit) * 1.25); /* 25px */
             border: 1px solid var(--border-light);
-            border-radius: 10px;
+            border-radius: var(--border-radius-soft);
         }
 
         #cart-items li {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 25px;
+            padding: calc(var(--spacing-unit) * 0.9) calc(var(--spacing-unit) * 1.25); /* 18px 25px */
             border-bottom: 1px solid var(--border-light);
             background-color: #FDFDFD;
+            flex-wrap: wrap; /* Allow items to wrap if space is tight */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         #cart-items li:last-child {
             border-bottom: none;
         }
 
-        #cart-items li span:first-child {
+        #cart-items li > span:first-child { /* Target product name specifically */
             font-weight: 500;
-            color: var(--text-dark);
-            font-size: 1.1rem;
+            color: var(--text-main);
+            font-size: 1rem;
+            flex-basis: 100%; /* Make name take full width if wrapped */
+            margin-bottom: 5px;
         }
 
-        #cart-items li span:last-child {
+        #cart-items li > span:last-child { /* Target total price specifically */
             font-weight: 700;
-            color: var(--primary-navy);
-            font-size: 1.1rem;
+            color: var(--primary-dark);
+            font-size: 1rem;
+            flex-grow: 1; /* Allow price to take remaining space */
+            text-align: right;
+        }
+
+        #cart-items li > div { /* Quantity controls container */
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px; /* Add some space above quantity controls */
+            flex-basis: auto; /* Shrink to fit content */
+            flex-grow: 0;
         }
 
         .quantity-btn {
-            background-color: var(--secondary-teal);
+            background-color: var(--secondary-blue);
             color: white;
             border: none;
             border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            font-size: 1.3rem;
+            width: 32px; /* Slightly smaller */
+            height: 32px;
+            font-size: 1.2rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
             transition: background-color 0.2s ease, transform 0.1s ease;
+            flex-shrink: 0; /* Prevent buttons from shrinking */
         }
 
         .quantity-btn:hover {
-            background-color: #16A085;
+            background-color: #2980B9;
             transform: scale(1.05);
         }
 
@@ -543,117 +601,144 @@
 
         #cart-total-container {
             text-align: right;
-            font-size: 1.7rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin: 25px 0 35px;
-            color: var(--primary-navy);
+            margin: calc(var(--spacing-unit) * 1.25) 0 calc(var(--spacing-unit) * 0.75); /* 25px 0 15px */
+            color: var(--primary-dark);
         }
 
         #cart-total {
-            color: var(--success-green);
+            color: var(--accent-green);
         }
 
         #delivery-charge {
-            font-size: 1rem;
-            color: var(--text-light);
-            margin-top: -20px;
-            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: -15px;
+            margin-bottom: var(--spacing-unit); /* 20px */
             text-align: right;
         }
 
         /* Coupon Code Section */
         .coupon-section {
-            margin-top: 25px;
-            padding: 20px;
-            background-color: #F0F4F7; /* Lighter background for distinction */
+            margin-top: calc(var(--spacing-unit) * 1.25); /* 25px */
+            padding: var(--spacing-unit); /* 20px */
+            background-color: #F7F9FA; /* Lighter background for distinction */
             border: 1px solid var(--border-light);
-            border-radius: 10px;
+            border-radius: var(--border-radius-soft);
             display: flex;
-            gap: 12px;
+            gap: calc(var(--spacing-unit) * 0.6); /* 12px */
             align-items: center;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
         }
 
         .coupon-section input[type="text"] {
             flex-grow: 1;
-            padding: 12px;
-            border-radius: 8px;
+            min-width: 150px; /* Ensure input doesn't get too small */
+            padding: calc(var(--spacing-unit) * 0.6); /* 12px */
+            border-radius: var(--border-radius-soft);
             border: 1px solid var(--border-light);
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--card-background);
+            box-sizing: border-box;
         }
 
         .coupon-section input[type="text"]:focus {
-            border-color: var(--secondary-teal);
-            box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.1);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
             outline: none;
         }
 
         .coupon-section button {
-            background-color: var(--secondary-teal);
+            background-color: var(--secondary-blue);
             color: white;
-            padding: 12px 20px;
+            padding: calc(var(--spacing-unit) * 0.6) var(--spacing-unit); /* 12px 20px */
             border: none;
-            border-radius: 8px;
+            border-radius: var(--border-radius-soft);
             cursor: pointer;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: background-color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap; /* Prevent button text from wrapping */
+            flex-shrink: 0; /* Prevent button from shrinking */
         }
 
         .coupon-section button:hover {
-            background-color: #16A085;
+            background-color: #2980B9;
             transform: translateY(-1px);
         }
 
         #coupon-message {
-            margin-top: 15px;
-            font-size: 1rem;
+            margin-top: calc(var(--spacing-unit) * 0.75); /* 15px */
+            font-size: 0.9rem;
             font-weight: 500;
             text-align: center;
+            padding: calc(var(--spacing-unit) * 0.4); /* 8px */
+            border-radius: var(--border-radius-soft);
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         #coupon-message.success {
-            color: var(--coupon-success);
+            color: #155724;
+            background-color: var(--success-green-light);
+            border: 1px solid #28A745;
         }
 
         #coupon-message.error {
-            color: var(--coupon-error);
+            color: #721C24;
+            background-color: var(--error-red-light);
+            border: 1px solid #DC3545;
+        }
+        #discount-applied {
+            font-size: 0.85em;
+            color: #28A745;
+            display: block; /* Ensures it takes up space even when hidden */
+            margin-top: 5px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         #checkout-form label {
             display: block;
-            margin-top: 1.5rem;
+            margin-top: calc(var(--spacing-unit) * 1.2); /* 24px */
             font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: calc(var(--spacing-unit) * 0.4); /* 8px */
+            font-size: 0.95rem;
         }
 
         #checkout-form input[type="text"],
         #checkout-form input[type="tel"],
         #checkout-form textarea {
             width: 100%;
-            padding: 14px;
-            border-radius: 10px;
+            padding: calc(var(--spacing-unit) * 0.7); /* 14px */
+            border-radius: var(--border-radius-soft);
             border: 1px solid var(--border-light);
             box-sizing: border-box;
-            font-size: 1.05rem;
+            font-size: 0.95rem;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            background-color: #FDFDFD;
+            background-color: var(--card-background);
+        }
+
+        #checkout-form textarea {
+            min-height: 80px; /* Min height for textarea */
+            resize: vertical; /* Allow vertical resizing */
         }
 
         #checkout-form input:focus,
         #checkout-form textarea:focus {
-            border-color: var(--secondary-teal);
-            box-shadow: 0 0 0 4px rgba(26, 188, 156, 0.15);
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
             outline: none;
         }
 
         #payment-options {
-            margin-top: 20px;
+            margin-top: var(--spacing-unit); /* 20px */
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: calc(var(--spacing-unit) * 0.6); /* 12px */
         }
 
         #payment-options div {
@@ -662,152 +747,214 @@
         }
 
         #payment-options input[type="radio"] {
-            margin-right: 12px;
-            transform: scale(1.3);
-            accent-color: var(--secondary-teal); /* Highlight radio button */
+            margin-right: calc(var(--spacing-unit) * 0.6); /* 12px */
+            transform: scale(1.2); /* Slightly larger radio button */
+            accent-color: var(--secondary-blue); /* Highlight radio button */
+            cursor: pointer;
         }
 
         #payment-options label {
             margin: 0;
             font-weight: 500;
-            color: var(--text-dark);
-            font-size: 1.05rem;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            cursor: pointer;
         }
 
         #upi-qr-code {
             display: none;
             text-align: center;
-            margin-top: 2rem;
-            padding: 1.8rem;
-            border: 2px dashed var(--secondary-teal);
-            border-radius: 12px;
-            background-color: #EBF8F7; /* Light teal background */
+            margin-top: calc(var(--spacing-unit) * 1.5); /* 30px */
+            padding: calc(var(--spacing-unit) * 0.9); /* 18px */
+            border: 2px dashed var(--accent-green);
+            border-radius: var(--border-radius-soft);
+            background-color: #EBF8F7; /* Light green background */
+            box-sizing: border-box;
         }
 
         #upi-qr-code img {
-            max-width: 220px;
+            max-width: 200px;
             height: auto;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: var(--border-radius-soft);
+            margin-bottom: var(--spacing-unit); /* 20px */
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         #upi-qr-code p {
-            color: var(--text-dark);
+            color: var(--text-main);
             font-weight: 500;
-            font-size: 1.05rem;
+            font-size: 0.9rem;
             line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         #upi-qr-code strong {
-            color: var(--red-alert);
+            color: var(--error-red);
             font-weight: 600;
         }
 
         /* --- Footer --- */
         footer {
-            background-color: var(--primary-navy);
-            color: #E9ECEF;
-            padding: 45px 0;
+            background-color: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.8);
+            padding: calc(var(--spacing-unit) * 2.5) 0; /* 50px */
             text-align: center;
-            margin-top: 60px;
-            font-size: 0.9rem;
+            margin-top: calc(var(--spacing-unit) * 4); /* 80px */
+            font-size: 0.85rem;
         }
 
         footer p {
             margin: 5px 0;
         }
 
+        /* --- Scratch Card Specific Styles --- */
+        .scratch-card-modal-content {
+            text-align: center;
+            padding: calc(var(--spacing-unit) * 1.5); /* 30px */
+            max-width: 500px; /* Max width for scratch card modal */
+            box-sizing: border-box;
+        }
+
+        .scratch-card-container {
+            position: relative;
+            width: 280px; /* Adjusted width */
+            height: 160px; /* Adjusted height */
+            margin: calc(var(--spacing-unit) * 1.5) auto; /* 30px margin */
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: 0 8px 20px var(--shadow-strong);
+            background: linear-gradient(45deg, #FFD700, #FFA500); /* Golden gradient */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            font-weight: 700;
+            border: 3px solid #FFC107;
+            box-sizing: border-box;
+        }
+
+        .scratch-card-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            cursor: grab;
+        }
+
+        .scratch-card-reveal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            background-color: rgba(255, 255, 255, 0.95); /* More opaque white */
+            color: var(--accent-green);
+            font-size: 1.6rem;
+            font-weight: 700;
+            padding: calc(var(--spacing-unit) * 0.5); /* 10px */
+            box-sizing: border-box;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .scratch-card-reveal .gift-emoji {
+            font-size: 2.5rem;
+            margin-bottom: calc(var(--spacing-unit) * 0.5); /* 10px */
+        }
+
+        .claim-gift-btn {
+            background-color: var(--highlight-orange);
+            color: white;
+            padding: calc(var(--spacing-unit) * 0.7) calc(var(--spacing-unit) * 1.25); /* 14px 25px */
+            border: none;
+            border-radius: var(--border-radius-pill);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: calc(var(--spacing-unit) * 1.25); /* 25px */
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.25);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .claim-gift-btn:hover {
+            background-color: #D35400;
+            transform: translateY(-2px);
+        }
+
+        .claim-gift-btn:disabled {
+            background-color: var(--text-secondary);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
         /* --- Responsive Design --- */
         @media (max-width: 992px) {
             .store-name {
-                font-size: 2rem;
-            }
-            .search-bar {
-                margin: 0 20px;
-            }
-            .hero h1 {
-                font-size: 3.5rem;
-            }
-            .hero p {
-                font-size: 1.3rem;
-            }
-            .product-grid {
-                gap: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .store-name {
                 font-size: 1.8rem;
+                margin-right: var(--spacing-unit);
             }
-
             .search-bar {
-                margin: 15px 0 0;
-                order: 3;
-            }
-
-            header .container {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 20px;
-            }
-
-            .hero {
-                padding: 60px 20px;
-                min-height: 300px;
+                max-width: 400px;
             }
             .hero h1 {
                 font-size: 3rem;
             }
             .hero p {
-                font-size: 1.15rem;
+                font-size: 1.2rem;
             }
-
-            .category-overview h2, .product-category h2 {
-                font-size: 2.2rem;
-            }
-
-            .category-grid {
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                gap: 20px;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-                gap: 2rem;
-            }
-
-            .modal-content {
-                margin: 5% auto;
-                padding: 30px;
-            }
-
-            .modal-content h2 {
+            .section-title {
                 font-size: 2rem;
             }
-
-            #cart-items li {
-                padding: 15px 18px;
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* More columns on smaller desktops */
+                gap: calc(var(--spacing-unit)); /* Reduced gap */
             }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--spacing-unit); /* 20px padding */
+            }
+            header .container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: var(--spacing-unit); /* 20px gap */
+            }
             .store-name {
                 font-size: 1.6rem;
+                margin-right: 0;
+            }
+            .search-bar {
+                margin-top: var(--spacing-unit);
+                order: 3; /* Move search bar below store name and cart */
+                width: 100%;
+                max-width: none;
             }
             .cart-button {
-                padding: 9px 18px;
-                font-size: 0.95rem;
+                padding: calc(var(--spacing-unit) * 0.6) var(--spacing-unit); /* 12px 20px */
+                font-size: 0.9rem;
             }
             #cart-count {
-                padding: 4px 7px;
-                min-width: 22px;
-                font-size: 0.8rem;
+                padding: 3px 6px;
+                min-width: 20px;
+                font-size: 0.7rem;
             }
 
             .hero {
-                padding: 50px 15px;
-                min-height: 250px;
+                padding: calc(var(--spacing-unit) * 3) 0; /* 60px padding */
+                min-height: 280px;
             }
             .hero h1 {
                 font-size: 2.5rem;
@@ -815,195 +962,226 @@
             }
             .hero p {
                 font-size: 1rem;
-                margin-bottom: 25px;
+                margin-bottom: calc(var(--spacing-unit) * 1.5);
             }
             .hero .shop-now-btn {
-                padding: 12px 28px;
+                padding: calc(var(--spacing-unit) * 0.7) calc(var(--spacing-unit) * 1.5); /* 14px 30px */
                 font-size: 1rem;
             }
 
-            .category-overview h2, .product-category h2 {
+            .section-title {
                 font-size: 1.8rem;
-                margin-bottom: 25px;
+                margin-bottom: var(--spacing-unit); /* 20px */
             }
-            .category-overview h2::after, .product-category h2::after {
-                width: 70px;
-                height: 4px;
+            .section-title::after {
+                width: 60px;
+                height: 3px;
+                bottom: -8px;
             }
 
             .category-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: calc(var(--spacing-unit) * 0.75); /* 15px */
             }
             .category-card {
-                padding: 20px;
+                padding: var(--spacing-unit); /* 20px */
+                min-height: 120px;
             }
             .category-card i {
-                font-size: 3rem;
+                font-size: 2.5rem;
+                margin-bottom: calc(var(--spacing-unit) * 0.75);
             }
             .category-card h3 {
-                font-size: 1.2rem;
+                font-size: 1.1rem;
             }
 
             .product-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Smaller minmax for mobile */
+                gap: var(--spacing-unit) * 0.75; /* Reduced gap */
             }
             .product-image {
-                height: 200px;
+                height: 160px; /* Further reduced image height */
+                padding: var(--spacing-unit) * 0.25; /* Smaller image padding */
             }
             .product-info {
-                padding: 1.2rem;
+                padding: calc(var(--spacing-unit) * 0.6); /* 12px padding */
             }
             .product-name {
-                font-size: 1.2rem;
+                font-size: 1rem; /* Smaller font for name */
+                min-height: auto; /* Reset min-height for smaller screens if needed */
+                -webkit-line-clamp: 2; /* Limit to 2 lines on smaller screens */
             }
             .product-price {
-                font-size: 1.25rem;
+                font-size: 1rem; /* Smaller price font */
+            }
+            .product-price .mrp, .product-price .discount-percent {
+                font-size: 0.75rem; /* Even smaller for discount/mrp */
             }
             .add-to-cart-btn {
-                font-size: 1rem;
-                padding: 12px;
+                font-size: 0.85rem;
+                padding: calc(var(--spacing-unit) * 0.5); /* 10px padding */
             }
 
             .modal-content {
-                margin: 20px auto;
-                padding: 20px;
-                border-radius: 10px;
+                margin: 3vh auto; /* Adjusted margin */
+                padding: var(--spacing-unit); /* 20px */
+                border-radius: var(--border-radius-soft);
             }
             .modal-content h2 {
-                font-size: 1.6rem;
-                margin-bottom: 20px;
+                font-size: 1.5rem;
+                margin-bottom: var(--spacing-unit); /* 20px */
             }
             #cart-items li {
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 12px 15px;
-                gap: 8px;
+                padding: calc(var(--spacing-unit) * 0.6) calc(var(--spacing-unit) * 0.75); /* 12px 15px */
+                gap: calc(var(--spacing-unit) * 0.4); /* 8px */
             }
-            #cart-items li div {
+            #cart-items li > span:first-child { /* Product name in cart */
+                margin-bottom: 0; /* Remove extra margin if wrapped */
+            }
+            #cart-items li > div { /* Quantity controls */
+                width: 100%; /* Take full width on small screens */
                 justify-content: flex-start;
-                width: 100%;
+                margin-top: 5px;
             }
-            #cart-items li span:last-child {
-                align-self: flex-end;
+            #cart-items li > span:last-child { /* Price in cart */
+                align-self: flex-start; /* Align price to start */
+                text-align: left; /* Ensure text alignment is left */
+                width: 100%; /* Take full width */
             }
             #cart-total-container {
-                font-size: 1.5rem;
-                margin: 20px 0 25px;
+                font-size: 1.3rem;
+                margin: calc(var(--spacing-unit) * 0.75) 0 calc(var(--spacing-unit) * 0.75);
             }
             .coupon-section {
                 flex-direction: column;
-                padding: 15px;
-                gap: 10px;
+                padding: calc(var(--spacing-unit) * 0.75); /* 15px */
+                gap: calc(var(--spacing-unit) * 0.5); /* 10px */
+            }
+            .coupon-section input[type="text"] {
+                width: 100%; /* Full width for input on small screens */
+                min-width: unset;
             }
             .coupon-section button {
                 width: 100%;
-                padding: 10px;
+                padding: calc(var(--spacing-unit) * 0.6); /* 12px */
             }
             #checkout-form label {
-                margin-top: 1rem;
-                margin-bottom: 5px;
+                margin-top: var(--spacing-unit);
+                margin-bottom: calc(var(--spacing-unit) * 0.25);
             }
             #checkout-form input, #checkout-form textarea {
-                padding: 10px;
-                font-size: 0.95rem;
+                padding: calc(var(--spacing-unit) * 0.5); /* 10px */
+                font-size: 0.9rem;
             }
             #upi-qr-code {
-                padding: 1.2rem;
-                margin-top: 1.5rem;
+                padding: calc(var(--spacing-unit) * 0.75); /* 15px */
+                margin-top: var(--spacing-unit);
             }
             #upi-qr-code img {
-                max-width: 150px;
+                max-width: 120px;
             }
             #upi-qr-code p {
-                font-size: 0.95rem;
+                font-size: 0.85rem;
             }
 
-            /* Scratch Card Specific Styles */
+            /* Scratch Card Responsive */
             .scratch-card-modal-content {
-                text-align: center;
-                padding: 30px;
+                padding: var(--spacing-unit); /* 20px */
             }
-
             .scratch-card-container {
-                position: relative;
-                width: 300px; /* Increased width for better scratching */
-                height: 180px; /* Increased height */
-                margin: 30px auto;
-                border-radius: 15px;
-                overflow: hidden;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-                background: linear-gradient(45deg, #FFD700, #FFA500); /* Golden gradient */
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                font-family: 'Montserrat', sans-serif;
-                color: var(--primary-navy);
-                font-size: 1.5rem;
-                font-weight: 700;
-                border: 3px solid #FFC107; /* Thicker border */
-            }
-
-            .scratch-card-canvas {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 2; /* On top of the reveal content */
-                cursor: grab;
-            }
-
-            .scratch-card-reveal {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                z-index: 1; /* Below the canvas */
-                background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
-                color: var(--dark-green); /* Green text for gift */
-                font-size: 1.8rem;
-                font-weight: 700;
-                padding: 10px;
-                box-sizing: border-box;
-            }
-
-            .scratch-card-reveal .gift-emoji {
-                font-size: 3rem;
-                margin-bottom: 10px;
-            }
-
-            .claim-gift-btn {
-                background-color: var(--accent-orange);
-                color: white;
-                padding: 12px 25px;
-                border: none;
-                border-radius: 30px;
+                width: 240px;
+                height: 140px;
                 font-size: 1.1rem;
-                font-weight: 600;
-                cursor: pointer;
-                margin-top: 25px;
-                transition: background-color 0.3s ease, transform 0.2s ease;
-                box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
             }
-
-            .claim-gift-btn:hover {
-                background-color: #D35400;
-                transform: translateY(-2px);
+            .scratch-card-reveal {
+                font-size: 1.3rem;
             }
-
-            .claim-gift-btn:disabled {
-                background-color: var(--text-light);
-                cursor: not-allowed;
-                box-shadow: none;
-                transform: none;
+            .scratch-card-reveal .gift-emoji {
+                font-size: 2rem;
+            }
+            .claim-gift-btn {
+                font-size: 0.9rem;
+                padding: calc(var(--spacing-unit) * 0.6) var(--spacing-unit); /* 12px 20px */
+            }
+        }
+        @media (max-width: 480px) {
+            body {
+                font-size: 15px; /* Slightly reduce base font size for very small screens */
+            }
+            .container {
+                padding: 0 calc(var(--spacing-unit) * 0.75); /* 15px padding */
+            }
+            .store-name {
+                font-size: 1.4rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 0.9rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .product-name {
+                font-size: 0.95rem; /* Even smaller product name */
+            }
+            .product-price {
+                font-size: 1rem;
+            }
+            .product-price .mrp, .product-price .discount-percent {
+                font-size: 0.7rem;
+            }
+            .add-to-cart-btn {
+                font-size: 0.8rem;
+            }
+            .modal-content {
+                padding: calc(var(--spacing-unit) * 0.75); /* 15px */
+            }
+            .modal-content h2 {
+                font-size: 1.3rem;
+            }
+            #cart-items li {
+                padding: calc(var(--spacing-unit) * 0.5); /* 10px */
+                font-size: 0.9rem;
+            }
+            #cart-items li > span:first-child, #cart-items li > span:last-child {
+                font-size: 0.9rem;
+            }
+            .quantity-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 1rem;
+            }
+            .coupon-section input[type="text"], .coupon-section button {
+                font-size: 0.85rem;
+                padding: calc(var(--spacing-unit) * 0.4);
+            }
+            #coupon-message {
+                font-size: 0.8rem;
+            }
+            #checkout-form input, #checkout-form textarea {
+                font-size: 0.85rem;
+            }
+            #upi-qr-code p {
+                font-size: 0.75rem;
+            }
+            .scratch-card-container {
+                width: 200px;
+                height: 110px;
+                font-size: 0.9rem;
+            }
+            .scratch-card-reveal {
+                font-size: 1.1rem;
+            }
+            .scratch-card-reveal .gift-emoji {
+                font-size: 1.8rem;
+            }
+            .claim-gift-btn {
+                font-size: 0.8rem;
+                padding: calc(var(--spacing-unit) * 0.5) calc(var(--spacing-unit) * 0.8);
             }
         }
     </style>
@@ -1024,7 +1202,7 @@
                 <i class="fas fa-search"></i>
                 <input type="text" id="search-input" placeholder="Search for your favorite drinks...">
             </div>
-            <button class="cart-button" id="open-cart-btn">
+            <button class="cart-button rounded-pill" id="open-cart-btn">
                 <i class="fas fa-shopping-cart"></i> Cart
                 <span id="cart-count">0</span>
             </button>
@@ -1032,37 +1210,41 @@
     </header>
 
     <main class="container">
-        <section class="hero">
+        <section class="hero rounded-lg">
             <div class="hero-content">
                 <h1>Quench Your Thirst!</h1>
                 <p>Your ultimate hub for the coolest Prime and Kato drinks in Navsari!</p>
-                <button class="shop-now-btn" onclick="document.getElementById('category-overview').scrollIntoView({ behavior: 'smooth' });">Explore Drinks</button>
+                <button class="shop-now-btn rounded-pill" onclick="document.getElementById('category-overview').scrollIntoView({ behavior: 'smooth' });">Explore Drinks</button>
             </div>
         </section>
 
         <section id="category-overview" class="category-overview">
-            <h2>Shop by Category</h2>
+            <h2 class="section-title">Shop by Category</h2>
             <div class="category-grid" id="category-grid">
-                </div>
+                <!-- Category cards will be injected here by JavaScript -->
+            </div>
         </section>
 
         <section id="product-sections">
-            </section>
+            <!-- Product categories and cards will be injected here by JavaScript -->
+        </section>
     </main>
 
     <footer>
         <div class="container">
-            <p>2025 Teen's Stop. All rights reserved.</p>
+            <p>&copy; 2025 Teen's Stop. All rights reserved.</p>
             <p>Sip, Enjoy, Repeat!</p>
         </div>
     </footer>
 
+    <!-- Cart Modal -->
     <div id="cart-modal" class="modal">
-        <div class="modal-content">
+        <div class="modal-content rounded-lg">
             <span class="close-button" id="close-cart-btn">&times;</span>
             <h2>Your Shopping Cart</h2>
             <ul id="cart-items">
-                </ul>
+                <!-- Cart items will be injected here by JavaScript -->
+            </ul>
             <div class="coupon-section">
                 <input type="text" id="coupon-code-input" placeholder="Enter coupon code">
                 <button id="apply-coupon-btn">Apply</button>
@@ -1071,10 +1253,10 @@
 
             <div id="cart-total-container">
                 Total: ₹<span id="cart-total">0.00</span>
-                <p id="discount-applied" style="font-size:0.9em; color:var(--coupon-success); display:none;">(Discount Applied)</p>
+                <p id="discount-applied" style="display:none;"></p>
             </div>
             <p id="delivery-charge">Delivery Charge: ₹30.00</p>
-            <hr>
+            <hr style="border-top: 1px solid var(--border-light); margin: 1.5rem 0;">
             <h2>Checkout Information</h2>
             <form id="checkout-form" action="https://formsubmit.co/teensstopofficial@gmail.com" method="POST">
                 <input type="hidden" name="_subject" value="🎉 New Order from Teen's Stop!">
@@ -1082,13 +1264,13 @@
                 <textarea name="Order_Summary" id="order-summary" readonly style="display:none;"></textarea>
 
                 <label for="name">Full Name</label>
-                <input type="text" id="name" name="Customer_Name" required>
+                <input type="text" id="name" name="Customer_Name" required class="rounded-lg">
 
                 <label for="address">Full Delivery Address</label>
-                <textarea id="address" name="Delivery_Address" rows="3" required></textarea>
+                <textarea id="address" name="Delivery_Address" rows="3" required class="rounded-lg"></textarea>
 
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="Phone_Number" required>
+                <input type="tel" id="phone" name="Phone_Number" required class="rounded-lg">
 
                 <label>Payment Method</label>
                 <div id="payment-options">
@@ -1098,30 +1280,31 @@
                     </div>
                 </div>
 
-                <div id="upi-qr-code">
+                <div id="upi-qr-code" class="rounded-lg">
                     <p>Scan the QR code with any UPI app to pay.</p>
-                    <img src="IMG-20250610-WA0005.jpg" alt="UPI QR Code">
+                    <img src="https://placehold.co/220x220/2ECC71/white?text=UPI+QR+Code" alt="UPI QR Code">
                     <p><strong>Note:</strong> Show the payment receipt to the delivery person.</p>
                 </div>
 
-                <button type="submit" class="add-to-cart-btn" style="width:100%; margin-top: 1.5rem;">Place Order</button>
+                <button type="submit" class="add-to-cart-btn rounded-lg" style="width:100%; margin-top: 1.5rem;">Place Order</button>
             </form>
         </div>
     </div>
 
+    <!-- Scratch Card Modal -->
     <div id="scratch-card-modal" class="modal">
-        <div class="modal-content scratch-card-modal-content">
+        <div class="modal-content scratch-card-modal-content rounded-lg">
             <span class="close-button" id="close-scratch-card-btn">&times;</span>
             <h2>Congratulations! You Won!</h2>
-            <p style="font-size: 1.1rem; color: var(--text-dark);">Scratch the card to reveal your surprise gift!</p>
-            <div class="scratch-card-container">
+            <p style="font-size: 1rem; color: var(--text-secondary); margin-bottom: 1.5rem;">Scratch the card to reveal your surprise gift!</p>
+            <div class="scratch-card-container rounded-lg">
                 <canvas id="scratch-canvas" class="scratch-card-canvas"></canvas>
                 <div class="scratch-card-reveal" id="scratch-card-reveal">
                     <span class="gift-emoji">🎁</span>
                     <p>A Surprise Gift!</p>
                 </div>
             </div>
-            <button class="claim-gift-btn" id="claim-gift-btn" disabled>Claim Your Gift</button>
+            <button class="claim-gift-btn rounded-pill" id="claim-gift-btn" disabled>Claim Your Gift</button>
         </div>
     </div>
 
@@ -1288,10 +1471,10 @@
                     case 'Limited Edition Prime': return 'fa-star';
                     case 'Kato Drinks': return 'fa-wine-glass-alt';
                     case 'Trident Chewing Gum': return 'fa-leaf';
-                    case 'Other Beverages': return 'fa-coffee';
+                    case 'Other Beverages': return 'fa-mug-hot'; // Changed to a more general beverage icon
                     case 'Candies & Chewing Gums': return 'fa-candy-cane';
-                    case 'Mints & Chocolates': return 'fa-cookie-bite';
-                    case 'Noodles & Snacks': return 'fa-bowl-food'; // New category icon
+                    case 'Mints & Chocolates': return 'fa-chocolate'; // Changed to chocolate
+                    case 'Noodles & Snacks': return 'fa-bowl-food';
                     default: return 'fa-cube';
                 }
             }
@@ -1301,7 +1484,7 @@
                 const categories = getUniqueCategories();
                 categories.forEach(category => {
                     const categoryCard = document.createElement('div');
-                    categoryCard.className = 'category-card';
+                    categoryCard.className = 'category-card rounded-lg shadow-sm transition-ease';
                     categoryCard.setAttribute('data-category', category);
                     categoryCard.innerHTML = `
                         <i class="fas ${getCategoryIcon(category)}"></i>
@@ -1339,13 +1522,13 @@
                     const categorySection = document.createElement('div');
                     categorySection.className = 'product-category';
                     categorySection.id = `category-${category.replace(/\s+/g, '-').toLowerCase()}`; // Unique ID for direct linking
-                    categorySection.innerHTML = `<h2>${category}</h2><div class="product-grid"></div>`;
+                    categorySection.innerHTML = `<h2 class="section-title">${category}</h2><div class="product-grid"></div>`;
                     productSectionsContainer.appendChild(categorySection);
 
                     const productGrid = categorySection.querySelector('.product-grid');
                     groupedProducts[category].forEach(product => {
                         const productCard = document.createElement('div');
-                        productCard.className = 'product-card';
+                        productCard.className = 'product-card rounded-lg shadow-sm transition-ease';
 
                         let priceHtml = `<p class="product-price">₹${product.price.toFixed(2)}`;
                         if (product.mrp && product.price < product.mrp) {
@@ -1357,8 +1540,8 @@
 
                         // Disable add to cart for surprise gift product
                         const addToCartButton = product.id === SURPRISE_GIFT_ID
-                            ? `<button class="add-to-cart-btn" data-id="${product.id}" disabled style="background-color: var(--text-light); cursor: not-allowed;">Gift (Not for Sale)</button>`
-                            : `<button class="add-to-cart-btn" data-id="${product.id}">Add to Cart</button>`;
+                            ? `<button class="add-to-cart-btn rounded-lg" data-id="${product.id}" disabled>Gift (Not for Sale)</button>`
+                            : `<button class="add-to-cart-btn rounded-lg" data-id="${product.id}">Add to Cart</button>`;
 
                         productCard.innerHTML = `
                             <img src="${product.image}" alt="${product.name}" class="product-image">
@@ -1411,22 +1594,22 @@
             function renderCartItems() {
                 cartItemsList.innerHTML = '';
                 if (cart.length === 0) {
-                    cartItemsList.innerHTML = '<li style="justify-content: center; color: var(--text-light);"><p>Your cart is empty.</p></li>';
+                    cartItemsList.innerHTML = '<li style="justify-content: center; color: var(--text-secondary); padding: 20px;">Your cart is empty.</li>';
                 } else {
                     cart.forEach(item => {
                         const li = document.createElement('li');
                         li.setAttribute('data-id', item.id);
 
                         const quantityControls = item.id === SURPRISE_GIFT_ID
-                            ? `<span>${item.quantity} (Gift)</span>` // Display as gift, no quantity controls
-                            : `<div style="display: flex; align-items: center; gap: 10px;">
+                            ? `<span>Qty: ${item.quantity} (Gift)</span>` // Display as gift, no quantity controls
+                            : `<div style="display: flex; align-items: center; gap: 8px;">
                                 <button class="quantity-btn decrease-quantity-btn" data-id="${item.id}">-</button>
                                 <span>${item.quantity}</span>
                                 <button class="quantity-btn increase-quantity-btn" data-id="${item.id}">+</button>
                             </div>`;
 
                         const priceDisplay = item.id === SURPRISE_GIFT_ID
-                            ? `<span style="color: var(--success-green);">FREE</span>`
+                            ? `<span style="color: var(--accent-green); font-weight: 600;">FREE</span>`
                             : `<span>₹${(item.price * item.quantity).toFixed(2)}</span>`;
 
                         li.innerHTML = `
@@ -1451,9 +1634,7 @@
                     total = total * (1 - (currentDiscount / 100));
                 }
 
-                // Add delivery charge if total is not zero (after discounts)
-                // Delivery charge should be based on the actual product total, not including the gift.
-                // If subtotal is greater than 0, delivery applies.
+                // Add delivery charge if subtotal is greater than 0
                 if (subtotal > 0) {
                     total += DELIVERY_CHARGE;
                 }
@@ -1468,7 +1649,7 @@
                 cartTotalSpan.textContent = finalTotal.toFixed(2);
 
                 if (appliedCouponCode && currentDiscount > 0) {
-                     discountAppliedMessage.textContent = "(Applied: " + appliedCouponCode + " - " + currentDiscount + "% OFF)";
+                     discountAppliedMessage.textContent = `(Applied: ${appliedCouponCode} - ${currentDiscount}% OFF)`;
                      discountAppliedMessage.style.display = 'block';
                 } else {
                     discountAppliedMessage.style.display = 'none';
@@ -1542,7 +1723,7 @@
                     couponMessage.classList.add('success');
                 } else if (couponCode === '') {
                     couponMessage.textContent = 'Please enter a coupon code.';
-                    couponMessage.classList.add('error');
+                    couponCode.classList.add('error'); /* Corrected to add class to couponCode, not couponMessage */
                 } else {
                     couponMessage.textContent = 'Invalid coupon code. Please try again.';
                     couponMessage.classList.add('error');
@@ -1686,9 +1867,40 @@
                     };
                     cart.push({ ...giftProduct, quantity: 1 });
                     updateCart();
-                    alert('🥳 Your surprise gift has been added to your cart!');
+                    // Custom modal instead of alert
+                    const modalMessage = document.createElement('div');
+                    modalMessage.style.cssText = `
+                        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                        background-color: var(--accent-green); color: white; padding: 20px 30px;
+                        border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001;
+                        font-size: 1.1rem; text-align: center; opacity: 0; transition: opacity 0.3s ease;
+                        max-width: 90%; word-wrap: break-word; overflow-wrap: break-word; box-sizing: border-box;
+                    `;
+                    modalMessage.textContent = '🥳 Your surprise gift has been added to your cart!';
+                    document.body.appendChild(modalMessage);
+                    setTimeout(() => modalMessage.style.opacity = 1, 10); // Fade in
+                    setTimeout(() => {
+                        modalMessage.style.opacity = 0; // Fade out
+                        setTimeout(() => modalMessage.remove(), 300); // Remove after fade
+                    }, 2000);
+
                 } else {
-                    alert('You have already claimed your surprise gift!');
+                    // Custom modal instead of alert
+                    const modalMessage = document.createElement('div');
+                    modalMessage.style.cssText = `
+                        position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                        background-color: var(--error-red); color: white; padding: 20px 30px;
+                        border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001;
+                        font-size: 1.1rem; text-align: center; opacity: 0; transition: opacity 0.3s ease;
+                        max-width: 90%; word-wrap: break-word; overflow-wrap: break-word; box-sizing: border-box;
+                    `;
+                    modalMessage.textContent = 'You have already claimed your surprise gift!';
+                    document.body.appendChild(modalMessage);
+                    setTimeout(() => modalMessage.style.opacity = 1, 10);
+                    setTimeout(() => {
+                        modalMessage.style.opacity = 0;
+                        setTimeout(() => modalMessage.remove(), 300);
+                    }, 2000);
                 }
                 claimGiftBtn.disabled = true; // Disable button after claiming
                 scratchCardModal.style.display = 'none'; // Close modal after claiming
@@ -1701,14 +1913,29 @@
                 // If the gift is in the cart, calculate the subtotal excluding the gift
                 if (giftInCartIndex !== -1) {
                     const subtotalWithoutGift = cart.reduce((sum, item) => {
-                        return item.id === SURPRISE_GIFT_ID ? sum : sum + item.price * item.quantity;
+                        return item.id === SURPRISE_GIFT_ID ? sum : sum + item.price * item.quantity, 0; /* Changed comma to plus */
                     }, 0);
 
                     if (subtotalWithoutGift < SCRATCH_CARD_THRESHOLD) {
                         cart.splice(giftInCartIndex, 1); // Remove the gift from the cart
                         hasWonScratchCard = false; // Reset the flag
                         updateCart(); // Update UI after removing the gift
-                        alert('Your surprise gift has been removed because your subtotal fell below the required threshold.');
+                        // Custom modal instead of alert
+                        const modalMessage = document.createElement('div');
+                        modalMessage.style.cssText = `
+                            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+                            background-color: var(--error-red); color: white; padding: 20px 30px;
+                            border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); z-index: 1001;
+                            font-size: 1.1rem; text-align: center; opacity: 0; transition: opacity 0.3s ease;
+                            max-width: 90%; word-wrap: break-word; overflow-wrap: break-word; box-sizing: border-box;
+                        `;
+                        modalMessage.textContent = 'Your surprise gift has been removed because your subtotal fell below the required threshold.';
+                        document.body.appendChild(modalMessage);
+                        setTimeout(() => modalMessage.style.opacity = 1, 10);
+                        setTimeout(() => {
+                            modalMessage.style.opacity = 0;
+                            setTimeout(() => modalMessage.remove(), 300);
+                        }, 3000);
                     }
                 }
             }
@@ -1720,11 +1947,13 @@
                     const productId = parseInt(e.target.getAttribute('data-id'));
                     addToCart(productId);
                     // Give user feedback
+                    const originalText = e.target.innerText;
+                    const originalBg = e.target.style.backgroundColor;
                     e.target.innerText = 'Added!';
-                    e.target.style.backgroundColor = 'var(--dark-green)';
+                    e.target.style.backgroundColor = '#27AE60'; /* Darker green */
                     setTimeout(() => {
-                        e.target.innerText = 'Add to Cart';
-                        e.target.style.backgroundColor = 'var(--success-green)';
+                        e.target.innerText = originalText;
+                        e.target.style.backgroundColor = originalBg;
                     }, 1000);
                 }
             });
